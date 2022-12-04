@@ -1,0 +1,146 @@
+@Suppress("DSL_SCOPE_VIOLATION")
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
+    id(libs.plugins.kotlin.native.cocoapods.get().pluginId)
+    alias(libs.plugins.kotlin.plugin.serialization)
+}
+
+kotlin {
+    jvm {
+        compilations.all {
+            kotlinOptions.jvmTarget = "11"
+        }
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
+    }
+    js(IR) {
+        browser {
+            testTask {
+                useMocha {
+                    timeout = "10000"
+                }
+            }
+            commonWebpackConfig {
+                cssSupport.enabled = true
+            }
+        }
+    }
+    val hostOs = System.getProperty("os.name")
+    val isMingwX64 = hostOs.startsWith("Windows")
+    val nativeTarget = when {
+        hostOs == "Mac OS X" -> macosX64("native")
+        hostOs == "Linux" -> linuxX64("native")
+        isMingwX64 -> mingwX64("native")
+        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
+    }
+
+    android()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    cocoapods {
+        summary = "Some description for the Shared Module"
+        homepage = "Link to the Shared Module homepage"
+        version = "1.0"
+        ios.deploymentTarget = "14.1"
+        framework {
+            baseName = "shared"
+            isStatic = true // Set it up explicitly because the default behavior will be changed to DYNAMIC linking in the 1.8 version.
+        }
+    }
+
+    sourceSets {
+        all {
+            languageSettings.apply {
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            }
+        }
+
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.bundles.common.kotlin)
+                implementation(libs.bundles.common.ktor)
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.bundles.common.test)
+            }
+        }
+        val jvmMain by getting {
+            dependencies {
+                implementation(libs.bundles.java.main)
+            }
+        }
+        val jvmTest by getting {
+            dependsOn(commonTest)
+        }
+        val jsMain by getting {
+            dependencies {
+                implementation(libs.bundles.js.main)
+            }
+        }
+        val jsTest by getting {
+            dependsOn(commonTest)
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
+        }
+        val nativeMain by getting
+        val nativeTest by getting {
+            dependsOn(commonTest)
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.bundles.android.main)
+            }
+        }
+        val androidTest by getting {
+            dependsOn(commonTest)
+        }
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+
+            dependencies {
+                implementation(libs.bundles.ios.main)
+            }
+        }
+
+        val iosX64Test by getting
+        val iosArm64Test by getting
+        val iosSimulatorArm64Test by getting
+        val iosTest by creating {
+            dependsOn(commonTest)
+            iosX64Test.dependsOn(this)
+            iosArm64Test.dependsOn(this)
+            iosSimulatorArm64Test.dependsOn(this)
+        }
+    }
+}
+
+android {
+    namespace = "com.henryxu.openaikotlin"
+    compileSdk = 32
+    defaultConfig {
+        minSdk = 21
+        targetSdk = 32
+    }
+}
+
+tasks.register<Copy>("copyiOSTestResources") {
+    from("src/commonTest/resources")
+    into("build/bin/iosSimulatorArm64/debugTest/resources")
+}
+
+tasks.findByName("iosSimulatorArm64Test")?.dependsOn("copyiOSTestResources")
