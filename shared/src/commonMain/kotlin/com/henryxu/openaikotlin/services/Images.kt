@@ -7,6 +7,9 @@ import com.henryxu.openaikotlin.models.ImageResult
 import com.henryxu.openaikotlin.models.VariateImageRequest
 import io.ktor.resources.*
 
+/**
+ * https://beta.openai.com/docs/api-reference/images
+ */
 interface ImagesApi {
     suspend fun createImage(request: CreateImageRequest): Response<ImageResult>
     suspend fun editImage(request: EditImageRequest): Response<ImageResult>

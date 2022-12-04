@@ -4,6 +4,9 @@ import com.henryxu.openaikotlin.Response
 import com.henryxu.openaikotlin.models.*
 import io.ktor.resources.*
 
+/**
+ * https://beta.openai.com/docs/api-reference/fine-tunes
+ */
 interface FineTunesApi {
     suspend fun createFineTune(request: CreateFineTuneRequest): Response<FineTuneResult>
     suspend fun listFineTunes(): Response<FineTunesResult>

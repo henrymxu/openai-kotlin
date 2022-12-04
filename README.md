@@ -12,13 +12,30 @@ This library contains support for the following platforms:
 
 It includes statically defined types for both requests and responses for all the publicly documented APIs.
 
+## Usage
+
+```kotlin
+val client = OpenAiClient.Builder(apiKey = "<YOUR KEY HERE>") {
+    // optional configurations
+}
+
+val model = client.api.retrieveModel("text-davinci-003")
+assertEquals("text-davinci-003", model.id)
+```
+
 ## Examples
 
 ### Android
 
-TBD
+In Progress
+
+### iOS
+
+TBA
 
 ## Tests
+
+The `commonTest` contains tests that will execute real requests to the OpenAI API.
 
 ### Setup
 

@@ -5,6 +5,9 @@ import com.henryxu.openaikotlin.models.ModelResult
 import com.henryxu.openaikotlin.models.ModelsResult
 import io.ktor.resources.*
 
+/**
+ * https://beta.openai.com/docs/api-reference/models
+ */
 interface ModelsApi {
     suspend fun listModels(): Response<ModelsResult>
     suspend fun retrieveModel(modelId: String): Response<ModelResult>

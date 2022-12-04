@@ -12,15 +12,15 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
-class ConcreteOpenAiClient(
-    private val token: String,
+internal class ConcreteOpenAiClient(
+    private val apiKey: String,
     version: OpenAiClient.Version,
     organization: String,
 ): OpenAiClient {
     override val api: ConcreteOpenAiService
 
     internal constructor(builder: OpenAiClient.Builder) : this(
-        builder.token,
+        builder.apiKey,
         builder.version,
         builder.organization,
     )
@@ -32,7 +32,7 @@ class ConcreteOpenAiClient(
             install(Auth) {
                 bearer {
                     loadTokens {
-                        BearerTokens(token, "")
+                        BearerTokens(apiKey, "")
                     }
                 }
             }

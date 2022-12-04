@@ -9,6 +9,9 @@ import io.ktor.resources.*
     "Please use their replacement, Models, instead. ",
     ReplaceWith("ModelsApi")
 )
+/**
+ * https://beta.openai.com/docs/api-reference/engines
+ */
 interface EnginesApi {
     suspend fun listEngines(): Response<EnginesResult>
     suspend fun retrieveEngine(engineId: String): Response<EngineResult>

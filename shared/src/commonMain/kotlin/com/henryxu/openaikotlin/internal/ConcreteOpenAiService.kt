@@ -12,7 +12,7 @@ import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 
-class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
+internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
     override suspend fun listModels(): Response<ModelsResult> = get(ModelsResource())
 
     override suspend fun retrieveModel(modelId: String): Response<ModelResult> =

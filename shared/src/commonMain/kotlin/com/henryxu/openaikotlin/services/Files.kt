@@ -7,6 +7,9 @@ import com.henryxu.openaikotlin.models.FilesResult
 import com.henryxu.openaikotlin.models.UploadFileRequest
 import io.ktor.resources.*
 
+/**
+ * https://beta.openai.com/docs/api-reference/files
+ */
 interface FilesApi {
     suspend fun listFiles(): Response<FilesResult>
     suspend fun retrieveFile(fileId: String): Response<FileResult>
