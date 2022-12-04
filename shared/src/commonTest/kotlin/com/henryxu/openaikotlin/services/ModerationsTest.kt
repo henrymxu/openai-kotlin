@@ -5,6 +5,7 @@ import com.henryxu.openaikotlin.models.CreateModerationRequest
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
 class ModerationsTest: BaseServiceTest() {
     @Test
@@ -15,5 +16,6 @@ class ModerationsTest: BaseServiceTest() {
 
         val result = runValidCase { client.api.createModeration(request) }
         assertNotEquals(0, result.results.size)
+        assertTrue(result.results.first().flagged)
     }
 }

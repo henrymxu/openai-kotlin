@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.henryxu.openaikotlin"
+    namespace = "com.henryxu.openaikotlin.android"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.henryxu.openaikotlin"
+        applicationId = "com.henryxu.openaikotlin.android"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
@@ -21,7 +21,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "API_KEY", "\"${System.getenv("OPEN_AI_API_KEY")}\"")
+        }
+
         release {
+            buildConfigField("String", "API_KEY", "\"${System.getenv("OPEN_AI_API_KEY")}\"")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
@@ -60,4 +65,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.3.1")
     debugImplementation("androidx.compose.ui:ui-tooling:1.3.1")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.3.1")
+
+    implementation("io.coil-kt:coil:2.2.2")
+    implementation("io.coil-kt:coil-compose:2.2.2")
 }
