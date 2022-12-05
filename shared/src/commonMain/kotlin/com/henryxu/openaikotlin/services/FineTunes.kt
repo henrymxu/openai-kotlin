@@ -13,9 +13,12 @@ interface FineTunesApi {
     suspend fun retrieveFineTune(fineTuneId: String): Response<FineTuneResult>
     suspend fun cancelFineTune(fineTuneId: String): Response<FineTuneResult>
     suspend fun listFineTuneEvents(
-        fineTuneId: String,
-        stream: Boolean? = null
+        fineTuneId: String
     ): Response<FineTuneEventsResult>
+
+    suspend fun streamFineTuneEvents(
+        fineTuneId: String
+    ): Response<FineTuneEvent>
     suspend fun deleteFineTuneModel(modelId: String): Response<EntityDeleteResult>
 }
 
@@ -32,5 +35,9 @@ internal class FineTunesResource {
 
     @kotlinx.serialization.Serializable
     @Resource("{id}/events")
-    class FineTuneEventsResource(val id: String, val stream: Boolean? = null, val parent: FineTunesResource = FineTunesResource())
+    class FineTuneEventsResource(val id: String, val stream: Boolean? = null, val parent: FineTunesResource = FineTunesResource()): StreamingSupported {
+        override fun isStreamingRequest(): Boolean {
+            return stream == true
+        }
+    }
 }

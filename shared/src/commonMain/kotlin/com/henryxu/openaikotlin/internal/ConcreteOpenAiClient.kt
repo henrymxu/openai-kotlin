@@ -47,10 +47,10 @@ internal class ConcreteOpenAiClient(
             install(Resources)
 
             defaultRequest {
-                url(RequestConstants.BASE_URL + "/" + version.value + "/")
+                url(OpenAiConstants.BASE_URL + "/" + version.value + "/")
                 contentType(ContentType.Application.Json)
                 if (organization.isNotBlank()) {
-                    header(RequestConstants.ORGANIZATION_HEADER, organization)
+                    header(OpenAiConstants.ORGANIZATION_HEADER, organization)
                 }
             }
         }

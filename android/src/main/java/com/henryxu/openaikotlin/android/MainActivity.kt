@@ -31,10 +31,12 @@ class MainActivity : ComponentActivity() {
         openAiClient = OpenAiClient.build(BuildConfig.API_KEY) {
 
         }
+
+        val title = getString(R.string.app_name)
         setContent {
             MaterialTheme {
                 Scaffold(
-                    topBar = { TopAppBar(title = { Text(text = "OpenAI Kotlin Sample App") }) }
+                    topBar = { TopAppBar(title = { Text(text = title) }) }
                 ) { contentPadding ->
                     Surface(
                         modifier = Modifier.padding(contentPadding),
@@ -84,6 +86,7 @@ fun MainContent(openAiClient: OpenAiClient) {
         ImagePromptContent(errorMessage, { errorMessage = it }) {
             coroutineScope.launch {
                 withContext(Dispatchers.IO) {
+                    errorMessage = ""
                     loading = true
                     val moderation = makeModerationRequest(it)
                     moderation.result?.let {
@@ -92,7 +95,7 @@ fun MainContent(openAiClient: OpenAiClient) {
                             return@withContext
                         }
                     } ?: run {
-                        errorMessage = moderationRequestFailed + "\n" + moderation.error?.localizedMessage
+                        errorMessage = moderationRequestFailed + "\n" + moderation.error?.message
                         return@withContext
                     }
                     loading = true
@@ -100,7 +103,7 @@ fun MainContent(openAiClient: OpenAiClient) {
                     response.result?.let {
                         results = it
                     } ?: run {
-                        errorMessage = imageRequestFailed + "\n" + response.error?.localizedMessage
+                        errorMessage = imageRequestFailed + "\n" + response.error?.message
                     }
                 }
             }

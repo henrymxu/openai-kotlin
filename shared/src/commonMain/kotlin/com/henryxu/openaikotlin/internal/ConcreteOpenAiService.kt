@@ -6,11 +6,18 @@ import com.henryxu.openaikotlin.models.*
 import com.henryxu.openaikotlin.services.*
 import io.ktor.client.*
 import io.ktor.client.call.*
+import io.ktor.client.plugins.*
 import io.ktor.client.plugins.resources.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.utils.io.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
     override suspend fun listModels(): Response<ModelsResult> = get(ModelsResource())
@@ -63,10 +70,11 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
     override suspend fun cancelFineTune(fineTuneId: String): Response<FineTuneResult> =
         post(FineTunesResource.FineTuneCancelResource(fineTuneId), null)
 
-    override suspend fun listFineTuneEvents(
-        fineTuneId: String,
-        stream: Boolean?
-    ): Response<FineTuneEventsResult> = get(FineTunesResource.FineTuneEventsResource(fineTuneId, stream = stream))
+    override suspend fun listFineTuneEvents(fineTuneId: String): Response<FineTuneEventsResult> =
+        get(FineTunesResource.FineTuneEventsResource(fineTuneId, stream = false))
+
+    override suspend fun streamFineTuneEvents(fineTuneId: String): Response<FineTuneEvent> =
+        get(FineTunesResource.FineTuneEventsResource(fineTuneId, stream = true))
 
     override suspend fun deleteFineTuneModel(modelId: String): Response<EntityDeleteResult> =
         delete(ModelsResource.ModelResource(modelId))
@@ -82,43 +90,81 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
     override suspend fun retrieveEngine(engineId: String): Response<EngineResult> =
         get(EnginesResource.EngineResource(engineId))
 
+    private suspend inline fun <reified R: Any> makeStreamingRequest(fn: () -> HttpResponse): Response<R> {
+        var producer: Flow<R>? = null
+        var error: OpenAiClientRequestError? = null
+
+        try {
+            val response = fn()
+            val channel: ByteReadChannel = response.body()
+
+            val prefix = "data:"
+            val terminate = "[DONE]"
+
+            producer = flow {
+                while (!channel.isClosedForRead) {
+                    val line = channel.readUTF8Line()
+                    line?.removePrefix(prefix)?.trim()?.let {
+                        if (it.isNotBlank() && it != terminate) {
+                            val completion = Json.decodeFromString<R>(it)
+                            emit(completion)
+                        }
+                    }
+                }
+                currentCoroutineContext().cancel()
+            }
+        } catch (e: ClientRequestException) {
+            error = OpenAiUtils.parseOpenAiClientRequestError(e.message)
+        } finally {
+            return Response(null, "", error, producer)
+        }
+    }
+
     private suspend inline fun <reified R : Any> makeRequest(fn: () -> HttpResponse): Response<R> {
         var result: R? = null
         var raw: String? = null
-        var error: Error? = null
+        var error: OpenAiClientRequestError? = null
 
         try {
             val response = fn()
             result = response.body()
             raw = response.bodyAsText()
-        } catch (e: Exception) {
-            error = Error(e)
+        } catch (e: ClientRequestException) {
+            error = OpenAiUtils.parseOpenAiClientRequestError(e.message)
         } finally {
             return Response(result, raw, error)
         }
     }
 
     private suspend inline fun <reified T : Any, reified R : Any> submitForm(
-        request: T,
+        resource: T,
         body: MultiPartFormDataSupported
     ): Response<R> {
-        return makeRequest { client.post(request) {
+        return makeRequest { client.post(resource) {
             contentType(ContentType.MultiPart.FormData)
             setBody(body.toMultiPartFormData()) }
         }
     }
     private suspend inline fun <reified T : Any, reified R : Any> post(
-        request: T,
-        body: Any?
+        resource: T,
+        request: Any?
     ): Response<R> {
-        return makeRequest { client.post(request) { setBody(body) } }
+        return if (request is StreamingSupported && request.isStreamingRequest()) {
+            makeStreamingRequest { client.post(resource) { setBody(request) } }
+        } else {
+            makeRequest { client.post(resource) { setBody(request) } }
+        }
     }
 
-    private suspend inline fun <reified T : Any, reified R : Any> get(request: T): Response<R> {
-        return makeRequest { client.get(request) }
+    private suspend inline fun <reified T : Any, reified R : Any> get(resource: T): Response<R> {
+        return if (resource is StreamingSupported && resource.isStreamingRequest()) {
+            makeStreamingRequest { client.get(resource) }
+        } else {
+            makeRequest { client.get(resource) }
+        }
     }
 
-    private suspend inline fun <reified T : Any, reified R : Any> delete(request: T): Response<R> {
-        return makeRequest { client.delete(request) }
+    private suspend inline fun <reified T : Any, reified R : Any> delete(resource: T): Response<R> {
+        return makeRequest { client.delete(resource) }
     }
 }

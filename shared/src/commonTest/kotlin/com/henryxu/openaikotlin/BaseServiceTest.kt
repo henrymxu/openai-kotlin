@@ -1,13 +1,17 @@
 package com.henryxu.openaikotlin
 
+import com.henryxu.openaikotlin.models.OpenAiClientRequestError
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.resetMain
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
+
 abstract class BaseServiceTest {
     protected lateinit var client: OpenAiClient
+
     @BeforeTest
     fun setup() {
         client = OpenAiClient.build(PrivateInfo.API_KEY) {
@@ -19,19 +23,31 @@ abstract class BaseServiceTest {
     fun tearDown() {
         Dispatchers.resetMain() // reset the main dispatcher to the original Main dispatcher
     }
+
+    protected suspend fun <T> runValidStreamCase(fn: suspend () -> Response<T>): Flow<T> {
+        val result = fn()
+        assertNull(result.result)
+        assertNull(result.error)
+        assertNotNull(result.stream)
+        return result.stream!!
+    }
+
     protected suspend fun <T> runValidCase(fn: suspend () -> Response<T>): T {
         val result = fn()
         assertNull(result.error)
+        assertNull(result.stream)
         assertNotNull(result.result)
         return result.result!!
     }
 
-    protected suspend fun <T> runInvalidCase(fn: suspend () -> Response<T>): Error {
+    protected suspend fun <T> runInvalidCase(fn: suspend () -> Response<T>): OpenAiClientRequestError {
         val result = fn()
         assertNull(result.result)
+        assertNull(result.stream)
         assertNotNull(result.error)
         return result.error!!
     }
+
     protected fun openFile(fileName: String): ByteArray {
         return readImageResource(fileName)
     }

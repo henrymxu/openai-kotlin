@@ -26,7 +26,11 @@ data class CreateCompletionRequest(
     @SerialName("logit_bias")
     val logitBias: Map<String, Int>? = null,
     val user: String? = null
-)
+): StreamingSupported {
+    override fun isStreamingRequest(): Boolean {
+        return stream == true
+    }
+}
 
 typealias CompletionResult = Completion
 
@@ -38,7 +42,7 @@ data class Completion(
     val created: Long,
     val model: String,
     val choices: List<Choice>,
-    val usage: Usage
+    val usage: Usage? = null
 )
 
 

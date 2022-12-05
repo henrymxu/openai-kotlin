@@ -10,7 +10,8 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-coroutines-js = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core-js", version.ref = "kotlinx" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinx" }
 
-kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.4.1" }
+kotlinx-serialization-json-common = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version = "1.4.1" }
+
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version = "0.4.0" }
 
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
@@ -25,7 +26,7 @@ ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.r
 ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
 
 [bundles]
-common-kotlin = ["kotlinx-coroutines-core", "kotlinx-serialization-json", "kotlinx-datetime"]
+common-kotlin = ["kotlinx-coroutines-core", "kotlinx-serialization-json-common", "kotlinx-datetime"]
 common-ktor = ["ktor-client-core", "ktor-client-auth", "ktor-client-content-negotiation", "ktor-client-resources", "ktor-serialization-kotlinx-json"]
 common-test = ["kotlinx-coroutines-test"]
 

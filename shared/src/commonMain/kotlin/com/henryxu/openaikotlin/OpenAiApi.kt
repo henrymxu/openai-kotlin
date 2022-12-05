@@ -1,5 +1,6 @@
 package com.henryxu.openaikotlin
 
+import com.henryxu.openaikotlin.models.OpenAiClientRequestError
 import com.henryxu.openaikotlin.services.CompletionsApi
 import com.henryxu.openaikotlin.services.EditsApi
 import com.henryxu.openaikotlin.services.EmbeddingsApi
@@ -9,6 +10,7 @@ import com.henryxu.openaikotlin.services.FineTunesApi
 import com.henryxu.openaikotlin.services.ImagesApi
 import com.henryxu.openaikotlin.services.ModelsApi
 import com.henryxu.openaikotlin.services.ModerationsApi
+import kotlinx.coroutines.flow.Flow
 
 interface OpenAiApi : ModelsApi, CompletionsApi, EditsApi, ImagesApi, EmbeddingsApi, FilesApi,
     FineTunesApi, ModerationsApi, EnginesApi
@@ -16,5 +18,6 @@ interface OpenAiApi : ModelsApi, CompletionsApi, EditsApi, ImagesApi, Embeddings
 data class Response<T>(
     val result: T?,
     val raw: String?,
-    val error: Error?,
+    val error: OpenAiClientRequestError?,
+    val stream: Flow<T>? = null,
 )

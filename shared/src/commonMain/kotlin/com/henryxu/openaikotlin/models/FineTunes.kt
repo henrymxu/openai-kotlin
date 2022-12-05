@@ -70,6 +70,8 @@ data class FineTune(
     val updatedAt: Long,
 )
 
+typealias FineTuneEventResult = FineTuneEvent
+
 @kotlinx.serialization.Serializable
 data class FineTuneEvent(
     @SerialName("object")

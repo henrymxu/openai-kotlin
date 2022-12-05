@@ -51,4 +51,11 @@ class FineTunesTest: BaseServiceTest() {
         val result = runValidCase { client.api.deleteFineTuneModel(fineTuneId) }
         assertTrue(result.deleted)
     }
+
+    @Test
+    fun testStreamFineTuneEvents() = runTest {
+        val fineTuneId = "ft-AF1WoRqd3aJAHsqc9NY7iL8F"
+        val result = runValidStreamCase { client.api.streamFineTuneEvents(fineTuneId) }
+        // TODO: find the response for stream
+    }
 }

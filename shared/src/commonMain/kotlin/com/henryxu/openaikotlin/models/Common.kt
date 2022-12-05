@@ -7,6 +7,18 @@ interface MultiPartFormDataSupported {
     fun toMultiPartFormData(): MultiPartFormDataContent
 }
 
+interface StreamingSupported {
+    fun isStreamingRequest(): Boolean
+}
+
+@kotlinx.serialization.Serializable
+data class OpenAiClientRequestError(
+    val message: String,
+    val type: String,
+    val param: String?,
+    val code: Int?
+)
+
 @kotlinx.serialization.Serializable
 data class Usage(
     @SerialName("prompt_tokens")

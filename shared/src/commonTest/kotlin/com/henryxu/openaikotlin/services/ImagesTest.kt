@@ -1,13 +1,11 @@
 package com.henryxu.openaikotlin.services
 
 import com.henryxu.openaikotlin.BaseServiceTest
-import com.henryxu.openaikotlin.models.CreateImageRequest
-import com.henryxu.openaikotlin.models.EditImageRequest
-import com.henryxu.openaikotlin.models.ImageSize
-import com.henryxu.openaikotlin.models.VariateImageRequest
+import com.henryxu.openaikotlin.models.*
 import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import kotlin.test.assertNotEquals
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlin.test.*
 
 class ImagesTest: BaseServiceTest() {
     @Test
@@ -19,7 +17,6 @@ class ImagesTest: BaseServiceTest() {
         )
         val result = runValidCase { client.api.createImage(request) }
         assertNotEquals(0, result.data.size)
-        println(result.data.first().url)
         assertNotEquals("", result.data.first().url)
     }
 
@@ -33,7 +30,6 @@ class ImagesTest: BaseServiceTest() {
         )
         val result = runValidCase { client.api.editImage(request) }
         assertNotEquals(0, result.data.size)
-        println(result.data.first().url)
         assertNotEquals("", result.data.first().url)
     }
 
@@ -46,7 +42,18 @@ class ImagesTest: BaseServiceTest() {
         )
         val result = runValidCase { client.api.variateImage(request) }
         assertNotEquals(0, result.data.size)
-        println(result.data.first().url)
         assertNotEquals("", result.data.first().url)
+    }
+
+    @Test
+    fun testInappropriateCreateImage() = runTest {
+        val request = CreateImageRequest(
+            "Shooting someone",
+            n = 2,
+            size = ImageSize.SMALL
+        )
+        val result = runInvalidCase { client.api.createImage(request) }
+        assertEquals("invalid_request_error", result.type)
+        assertTrue(result.message.isNotBlank())
     }
 }

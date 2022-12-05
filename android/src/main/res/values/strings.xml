@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">sample</string>
+    <string name="app_name">Open AI Kotlin Sample App</string>
     <string name="error_empty_prompt">Prompt cannot be empty</string>
     <string name="error_inappropriate_content">Inappropriate Content, try again</string>
     <string name="error_moderation_request_failed">Moderation request failed, try again</string>
