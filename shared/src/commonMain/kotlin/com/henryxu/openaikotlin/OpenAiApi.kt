@@ -18,6 +18,5 @@ interface OpenAiApi : ModelsApi, CompletionsApi, EditsApi, ImagesApi, Embeddings
 data class Response<T>(
     val result: T?,
     val raw: String?,
-    val error: OpenAiClientRequestError?,
-    val stream: Flow<T>? = null,
+    val error: OpenAiClientRequestError?
 )

@@ -13,6 +13,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.henryxu.openaikotlin.OpenAiClient
+import com.henryxu.openaikotlin.OpenAiClientBuilder
 import com.henryxu.openaikotlin.Response
 import com.henryxu.openaikotlin.models.CreateImageRequest
 import com.henryxu.openaikotlin.models.CreateModerationRequest
@@ -28,9 +29,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openAiClient = OpenAiClient.build(BuildConfig.API_KEY) {
-
-        }
+        openAiClient = OpenAiClientBuilder(BuildConfig.API_KEY).build()
 
         val title = getString(R.string.app_name)
         setContent {

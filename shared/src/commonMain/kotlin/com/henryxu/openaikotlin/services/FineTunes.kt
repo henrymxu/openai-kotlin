@@ -1,8 +1,13 @@
 package com.henryxu.openaikotlin.services
 
 import com.henryxu.openaikotlin.Response
-import com.henryxu.openaikotlin.models.*
-import io.ktor.resources.*
+import com.henryxu.openaikotlin.models.CreateFineTuneRequest
+import com.henryxu.openaikotlin.models.EntityDeleteResult
+import com.henryxu.openaikotlin.models.FineTuneEventResult
+import com.henryxu.openaikotlin.models.FineTuneEventsResult
+import com.henryxu.openaikotlin.models.FineTuneResult
+import com.henryxu.openaikotlin.models.FineTunesResult
+import kotlinx.coroutines.flow.Flow
 
 /**
  * https://beta.openai.com/docs/api-reference/fine-tunes
@@ -16,28 +21,6 @@ interface FineTunesApi {
         fineTuneId: String
     ): Response<FineTuneEventsResult>
 
-    suspend fun streamFineTuneEvents(
-        fineTuneId: String
-    ): Response<FineTuneEvent>
+    suspend fun streamFineTuneEvents(fineTuneId: String): Flow<Response<FineTuneEventResult>>
     suspend fun deleteFineTuneModel(modelId: String): Response<EntityDeleteResult>
-}
-
-@kotlinx.serialization.Serializable
-@Resource("/fine-tunes")
-internal class FineTunesResource {
-    @kotlinx.serialization.Serializable
-    @Resource("{id}")
-    class FineTuneResource(val id: String, val parent: FineTunesResource = FineTunesResource())
-
-    @kotlinx.serialization.Serializable
-    @Resource("{id}/cancel")
-    class FineTuneCancelResource(val id: String, val parent: FineTunesResource = FineTunesResource())
-
-    @kotlinx.serialization.Serializable
-    @Resource("{id}/events")
-    class FineTuneEventsResource(val id: String, val stream: Boolean? = null, val parent: FineTunesResource = FineTunesResource()): StreamingSupported {
-        override fun isStreamingRequest(): Boolean {
-            return stream == true
-        }
-    }
 }

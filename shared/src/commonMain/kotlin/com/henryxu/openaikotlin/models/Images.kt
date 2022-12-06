@@ -1,11 +1,12 @@
 package com.henryxu.openaikotlin.models
 
+import com.henryxu.openaikotlin.internal.MultiPartFormDataRequest
 import com.henryxu.openaikotlin.models.Utils.appendIfNotNull
 import com.henryxu.openaikotlin.models.Utils.appendImage
-import io.ktor.client.request.forms.*
-import io.ktor.http.*
+import io.ktor.client.request.forms.MultiPartFormDataContent
+import io.ktor.client.request.forms.formData
 import kotlinx.serialization.SerialName
-import kotlinx.serialization.encodeToString
+import kotlin.js.JsExport
 
 @kotlinx.serialization.Serializable
 data class CreateImageRequest(
@@ -27,7 +28,7 @@ data class EditImageRequest(
     @SerialName("response_format")
     val responseFormat: ImageFormat? = null,
     val user: String? = null
-): MultiPartFormDataSupported {
+): MultiPartFormDataRequest {
     override fun toMultiPartFormData(): MultiPartFormDataContent {
         return MultiPartFormDataContent(
             formData {
@@ -51,7 +52,7 @@ data class VariateImageRequest(
     @SerialName("response_format")
     val responseFormat: ImageFormat? = null,
     val user: String? = null
-): MultiPartFormDataSupported {
+): MultiPartFormDataRequest {
     override fun toMultiPartFormData(): MultiPartFormDataContent {
         return MultiPartFormDataContent(
             formData {
@@ -71,6 +72,7 @@ data class ImageResult(
     val data: List<ImageData>
 )
 
+@JsExport
 @kotlinx.serialization.Serializable
 data class ImageData(
     val url: String? = null,
@@ -78,6 +80,7 @@ data class ImageData(
     val base64: String? = null,
 )
 
+@JsExport
 @kotlinx.serialization.Serializable
 enum class ImageSize(val value: String) {
     @SerialName("256x256")
@@ -88,6 +91,7 @@ enum class ImageSize(val value: String) {
     LARGE("1024x1024")
 }
 
+@JsExport
 @kotlinx.serialization.Serializable
 enum class ImageFormat(val value: String) {
     @SerialName("url")

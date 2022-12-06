@@ -32,6 +32,26 @@ val model = client.api.retrieveModel("text-davinci-003")
 assertEquals("text-davinci-003", model.id)
 ```
 
+Next is a more complex example of streaming the results of a completion request
+
+```kotlin
+val model = "text-davinci-003"
+val request = CreateCompletionRequest(
+    model,
+    prompt = "Say this is a test",
+    stream = true,
+    logprobs = null,
+    stop = listOf("\n")
+)
+
+val result = client.api.streamCreateCompletion(request)
+CoroutineScope(Dispatchers.IO).launch {
+    result.collect { completion ->
+        // ... do stuff here
+    }
+}
+```
+
 ## Examples
 
 ## Android
@@ -48,6 +68,17 @@ If the following error occurs (`OPEN_AI_API_KEY cannot be null`), ensure the fol
 ## iOS
 
 TBA
+
+## NodeJS
+
+To access variables of type `Long` (e.g `created` / `createdAt`), you must access the `a1_1`
+of the variable.
+
+```javascript
+    data.created.a1_1
+```
+
+This is simply a result of `kotlin` not being able to export the `Long` type to `JS` yet.
 
 ## Tests
 

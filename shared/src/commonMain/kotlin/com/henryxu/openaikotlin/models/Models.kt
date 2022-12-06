@@ -1,12 +1,7 @@
 package com.henryxu.openaikotlin.models
 
 import kotlinx.serialization.SerialName
-
-@kotlinx.serialization.Serializable
-data class CreateModerationRequest(
-    val input: String,
-    val model: ModerationModel? = null
-)
+import kotlin.js.JsExport
 
 @kotlinx.serialization.Serializable
 data class ModelsResult(
@@ -31,6 +26,7 @@ data class Model(
     val root: String
 )
 
+@JsExport
 @kotlinx.serialization.Serializable
 data class Permission(
     @SerialName("allow_create_engine")
@@ -54,11 +50,3 @@ data class Permission(
     val type: String,
     val organization: String
 )
-
-@kotlinx.serialization.Serializable
-enum class ModerationModel {
-    @SerialName("text-moderation-stable")
-    STABLE,
-    @SerialName("text-moderation-latest")
-    LATEST
-}

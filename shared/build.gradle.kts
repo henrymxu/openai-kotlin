@@ -16,16 +16,23 @@ kotlin {
         }
     }
     js(IR) {
+        moduleName = "openaikotlin"
+        compilations["main"].packageJson {
+            customField("hello", mapOf("one" to 1, "two" to 2))
+        }
         browser {
+            webpackTask {
+                cssSupport.enabled = true
+                // outputFileName = "openaikotlin.js"
+                output.libraryTarget = "commonjs2"
+            }
             testTask {
                 useMocha {
                     timeout = "10000"
                 }
             }
-            commonWebpackConfig {
-                cssSupport.enabled = true
-            }
         }
+        binaries.executable()
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -57,6 +64,7 @@ kotlin {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlin.js.ExperimentalJsExport")
             }
         }
 
@@ -81,6 +89,7 @@ kotlin {
             dependsOn(commonTest)
         }
         val jsMain by getting {
+            dependsOn(commonMain)
             dependencies {
                 implementation(libs.bundles.js.main)
             }

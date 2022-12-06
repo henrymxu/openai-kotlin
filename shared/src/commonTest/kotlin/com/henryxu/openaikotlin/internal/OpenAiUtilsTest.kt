@@ -1,6 +1,5 @@
 package com.henryxu.openaikotlin.internal
 
-import io.ktor.client.plugins.*
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -19,7 +18,6 @@ class OpenAiUtilsTest {
             }
             "
         """.trimIndent()
-
         val error = OpenAiUtils.parseOpenAiClientRequestError(exampleError)
         assertNotNull(error)
         assertEquals("invalid_request_error", error.type)

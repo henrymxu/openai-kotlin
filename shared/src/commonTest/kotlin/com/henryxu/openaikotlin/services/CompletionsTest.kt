@@ -1,6 +1,7 @@
 package com.henryxu.openaikotlin.services
 
 import com.henryxu.openaikotlin.BaseServiceTest
+import com.henryxu.openaikotlin.STREAM_TIMEOUT_MS
 import com.henryxu.openaikotlin.models.CreateCompletionRequest
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
@@ -46,12 +47,15 @@ class CompletionsTest: BaseServiceTest() {
             stop = listOf("\n")
         )
 
-        val result = runValidStreamCase { client.api.createCompletion(request) }
-        val list = withTimeoutOrNull(5000) {
+        val result = client.api.streamCreateCompletion(request)
+        val list = withTimeoutOrNull(STREAM_TIMEOUT_MS) {
             return@withTimeoutOrNull result.take(2).toList()
         }
         assertNotNull(list)
         assertEquals(2, list.size)
-        assertNotEquals(0, list.first().choices.size)
+
+        val firstResult = list.first().result
+        assertNotNull(firstResult)
+        assertNotEquals(0, firstResult.choices.size)
     }
 }

@@ -1,7 +1,12 @@
 package com.henryxu.openaikotlin.models
 
+import com.henryxu.openaikotlin.internal.StreamingSupportedRequest
 import kotlinx.serialization.SerialName
 
+/**
+ * The stream value is unused, to retrieve results as a stream use the following api
+ * @see com.henryxu.openaikotlin.services.CompletionsApi.streamCreateCompletion
+ */
 @kotlinx.serialization.Serializable
 data class CreateCompletionRequest(
     val model: String,
@@ -26,8 +31,8 @@ data class CreateCompletionRequest(
     @SerialName("logit_bias")
     val logitBias: Map<String, Int>? = null,
     val user: String? = null
-): StreamingSupported {
-    override fun isStreamingRequest(): Boolean {
+): StreamingSupportedRequest {
+    override fun isStreamRequest(): Boolean {
         return stream == true
     }
 }

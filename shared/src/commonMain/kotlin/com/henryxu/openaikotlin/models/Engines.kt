@@ -1,6 +1,7 @@
 package com.henryxu.openaikotlin.models
 
 import kotlinx.serialization.SerialName
+import kotlin.js.JsExport
 
 @kotlinx.serialization.Serializable
 data class EnginesResult(

@@ -2,23 +2,28 @@ package com.henryxu.openaikotlin
 
 import com.henryxu.openaikotlin.internal.ConcreteOpenAiClient
 
+enum class Version(val value: String) {
+    V1("v1")
+}
+
 interface OpenAiClient {
     val api: OpenAiApi
+}
+class OpenAiClientBuilder(
+    val apiKey: String
+) {
+    internal var organization: String = ""
+    internal var version: Version = Version.V1
 
-    companion object {
-        inline fun build(apiKey: String, block: Builder.() -> Unit = { }) = Builder(apiKey).apply(block).build()
+    fun addOrganization(organization: String): OpenAiClientBuilder {
+        this.organization = organization
+        return this
     }
 
-    class Builder(
-        val apiKey: String
-    ) {
-        internal var organization: String = ""
-        internal var version: Version = Version.V1
-
-        fun build(): OpenAiClient = ConcreteOpenAiClient(this)
+    fun changeVersion(version: Version): OpenAiClientBuilder {
+        this.version = version
+        return this
     }
 
-    enum class Version(val value: String) {
-        V1("v1")
-    }
+    fun build(): OpenAiClient = ConcreteOpenAiClient(this)
 }

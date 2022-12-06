@@ -2,8 +2,41 @@ package com.henryxu.openaikotlin.internal
 
 import com.henryxu.openaikotlin.OpenAiApi
 import com.henryxu.openaikotlin.Response
-import com.henryxu.openaikotlin.models.*
-import com.henryxu.openaikotlin.services.*
+import com.henryxu.openaikotlin.internal.resources.CompletionsResource
+import com.henryxu.openaikotlin.internal.resources.EditsResource
+import com.henryxu.openaikotlin.internal.resources.EmbeddingsResource
+import com.henryxu.openaikotlin.internal.resources.EnginesResource
+import com.henryxu.openaikotlin.internal.resources.FilesResource
+import com.henryxu.openaikotlin.internal.resources.FineTunesResource
+import com.henryxu.openaikotlin.internal.resources.ImagesResource
+import com.henryxu.openaikotlin.internal.resources.ModelsResource
+import com.henryxu.openaikotlin.internal.resources.ModerationsResource
+import com.henryxu.openaikotlin.models.CompletionResult
+import com.henryxu.openaikotlin.models.CreateCompletionRequest
+import com.henryxu.openaikotlin.models.CreateEditRequest
+import com.henryxu.openaikotlin.models.CreateEmbeddingsRequest
+import com.henryxu.openaikotlin.models.CreateFineTuneRequest
+import com.henryxu.openaikotlin.models.CreateImageRequest
+import com.henryxu.openaikotlin.models.CreateModerationRequest
+import com.henryxu.openaikotlin.models.EditImageRequest
+import com.henryxu.openaikotlin.models.EditResult
+import com.henryxu.openaikotlin.models.EmbeddingResult
+import com.henryxu.openaikotlin.models.EngineResult
+import com.henryxu.openaikotlin.models.EnginesResult
+import com.henryxu.openaikotlin.models.EntityDeleteResult
+import com.henryxu.openaikotlin.models.FileResult
+import com.henryxu.openaikotlin.models.FilesResult
+import com.henryxu.openaikotlin.models.FineTuneEvent
+import com.henryxu.openaikotlin.models.FineTuneEventsResult
+import com.henryxu.openaikotlin.models.FineTuneResult
+import com.henryxu.openaikotlin.models.FineTunesResult
+import com.henryxu.openaikotlin.models.ImageResult
+import com.henryxu.openaikotlin.models.ModelResult
+import com.henryxu.openaikotlin.models.ModelsResult
+import com.henryxu.openaikotlin.models.ModerationResult
+import com.henryxu.openaikotlin.models.OpenAiClientRequestError
+import com.henryxu.openaikotlin.models.UploadFileRequest
+import com.henryxu.openaikotlin.models.VariateImageRequest
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
@@ -27,6 +60,10 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
 
     override suspend fun createCompletion(request: CreateCompletionRequest): Response<CompletionResult> =
         post(CompletionsResource(), request)
+
+    override suspend fun streamCreateCompletion(request: CreateCompletionRequest): Flow<Response<CompletionResult>> {
+        return postStream(CompletionsResource(), request)
+    }
 
     override suspend fun createEdit(request: CreateEditRequest): Response<EditResult> =
         post(EditsResource(), request)
@@ -73,8 +110,8 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
     override suspend fun listFineTuneEvents(fineTuneId: String): Response<FineTuneEventsResult> =
         get(FineTunesResource.FineTuneEventsResource(fineTuneId, stream = false))
 
-    override suspend fun streamFineTuneEvents(fineTuneId: String): Response<FineTuneEvent> =
-        get(FineTunesResource.FineTuneEventsResource(fineTuneId, stream = true))
+    override suspend fun streamFineTuneEvents(fineTuneId: String): Flow<Response<FineTuneEvent>> =
+        getStream(FineTunesResource.FineTuneEventsResource(fineTuneId, stream = true))
 
     override suspend fun deleteFineTuneModel(modelId: String): Response<EntityDeleteResult> =
         delete(ModelsResource.ModelResource(modelId))
@@ -90,10 +127,7 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
     override suspend fun retrieveEngine(engineId: String): Response<EngineResult> =
         get(EnginesResource.EngineResource(engineId))
 
-    private suspend inline fun <reified R: Any> makeStreamingRequest(fn: () -> HttpResponse): Response<R> {
-        var producer: Flow<R>? = null
-        var error: OpenAiClientRequestError? = null
-
+    private suspend inline fun <reified R: Any> makeStreamingRequest(fn: () -> HttpResponse): Flow<Response<R>> {
         try {
             val response = fn()
             val channel: ByteReadChannel = response.body()
@@ -101,22 +135,24 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
             val prefix = "data:"
             val terminate = "[DONE]"
 
-            producer = flow {
+            return flow {
                 while (!channel.isClosedForRead) {
-                    val line = channel.readUTF8Line()
-                    line?.removePrefix(prefix)?.trim()?.let {
-                        if (it.isNotBlank() && it != terminate) {
-                            val completion = Json.decodeFromString<R>(it)
-                            emit(completion)
+                    try {
+                        val line = channel.readUTF8Line()
+                        line?.removePrefix(prefix)?.trim()?.let {
+                            if (it.isNotBlank() && it != terminate) {
+                                val completion = Json.decodeFromString<R>(it)
+                                emit(Response(completion, line, null))
+                            }
                         }
+                    } catch (e: ClientRequestException) {
+                        emit(Response(null, null, OpenAiUtils.parseOpenAiClientRequestError(e.message)))
                     }
                 }
                 currentCoroutineContext().cancel()
             }
         } catch (e: ClientRequestException) {
-            error = OpenAiUtils.parseOpenAiClientRequestError(e.message)
-        } finally {
-            return Response(null, "", error, producer)
+            return flow { emit(Response(null, null, OpenAiUtils.parseOpenAiClientRequestError(e.message)))}
         }
     }
 
@@ -138,30 +174,28 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
 
     private suspend inline fun <reified T : Any, reified R : Any> submitForm(
         resource: T,
-        body: MultiPartFormDataSupported
+        body: MultiPartFormDataRequest
     ): Response<R> {
         return makeRequest { client.post(resource) {
             contentType(ContentType.MultiPart.FormData)
             setBody(body.toMultiPartFormData()) }
         }
     }
-    private suspend inline fun <reified T : Any, reified R : Any> post(
-        resource: T,
-        request: Any?
-    ): Response<R> {
-        return if (request is StreamingSupported && request.isStreamingRequest()) {
-            makeStreamingRequest { client.post(resource) { setBody(request) } }
-        } else {
-            makeRequest { client.post(resource) { setBody(request) } }
-        }
+
+    private suspend inline fun <reified T : Any, reified R : Any> post(resource: T, request: Any?): Response<R> {
+        return makeRequest { client.post(resource) { setBody(request) } }
+    }
+
+    private suspend inline fun <reified T : Any, reified R : Any> postStream(resource: T, request: Any?): Flow<Response<R>> {
+        return makeStreamingRequest { client.post(resource) { setBody(request) } }
     }
 
     private suspend inline fun <reified T : Any, reified R : Any> get(resource: T): Response<R> {
-        return if (resource is StreamingSupported && resource.isStreamingRequest()) {
-            makeStreamingRequest { client.get(resource) }
-        } else {
-            makeRequest { client.get(resource) }
-        }
+        return makeRequest { client.get(resource) }
+    }
+
+    private suspend inline fun <reified T : Any, reified R : Any> getStream(resource: T): Flow<Response<R>> {
+        return makeStreamingRequest { client.get(resource) }
     }
 
     private suspend inline fun <reified T : Any, reified R : Any> delete(resource: T): Response<R> {

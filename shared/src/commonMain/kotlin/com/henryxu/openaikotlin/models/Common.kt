@@ -1,16 +1,9 @@
 package com.henryxu.openaikotlin.models
 
-import io.ktor.client.request.forms.*
 import kotlinx.serialization.SerialName
+import kotlin.js.JsExport
 
-interface MultiPartFormDataSupported {
-    fun toMultiPartFormData(): MultiPartFormDataContent
-}
-
-interface StreamingSupported {
-    fun isStreamingRequest(): Boolean
-}
-
+@JsExport
 @kotlinx.serialization.Serializable
 data class OpenAiClientRequestError(
     val message: String,
@@ -19,6 +12,7 @@ data class OpenAiClientRequestError(
     val code: Int?
 )
 
+@JsExport
 @kotlinx.serialization.Serializable
 data class Usage(
     @SerialName("prompt_tokens")
@@ -29,6 +23,7 @@ data class Usage(
     val totalTokens: Int
 )
 
+@JsExport
 @kotlinx.serialization.Serializable
 data class Choice(
     val text: String,
@@ -38,6 +33,7 @@ data class Choice(
     val finishReason: String? = null
 )
 
+@JsExport
 @kotlinx.serialization.Serializable
 data class File(
     val id: String,
@@ -51,6 +47,7 @@ data class File(
     val purpose: String
 )
 
+@JsExport
 @kotlinx.serialization.Serializable
 data class EntityDeleteResult(
     val id: String,

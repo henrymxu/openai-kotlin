@@ -1,6 +1,7 @@
 package com.henryxu.openaikotlin.models
 
 import kotlinx.serialization.SerialName
+import kotlin.js.JsExport
 
 @kotlinx.serialization.Serializable
 data class CreateFineTuneRequest(
@@ -35,14 +36,14 @@ data class FineTunesResult(
     val type: String
 )
 
-typealias FineTuneResult = FineTune
-
 @kotlinx.serialization.Serializable
 data class FineTuneEventsResult(
     @SerialName("object")
     val type: String,
     val data: List<FineTuneEvent>
 )
+
+typealias FineTuneResult = FineTune
 
 @kotlinx.serialization.Serializable
 data class FineTune(
@@ -82,6 +83,7 @@ data class FineTuneEvent(
     val message: String
 )
 
+@JsExport
 @kotlinx.serialization.Serializable
 data class HyperParams(
     @SerialName("n_epochs")

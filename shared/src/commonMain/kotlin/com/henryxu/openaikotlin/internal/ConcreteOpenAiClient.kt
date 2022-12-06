@@ -1,6 +1,9 @@
 package com.henryxu.openaikotlin.internal
 
+import com.henryxu.openaikotlin.OpenAiApi
 import com.henryxu.openaikotlin.OpenAiClient
+import com.henryxu.openaikotlin.OpenAiClientBuilder
+import com.henryxu.openaikotlin.Version
 import io.ktor.client.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
@@ -14,12 +17,12 @@ import kotlinx.serialization.json.Json
 
 internal class ConcreteOpenAiClient(
     private val apiKey: String,
-    version: OpenAiClient.Version,
+    version: Version,
     organization: String,
 ): OpenAiClient {
-    override val api: ConcreteOpenAiService
+    override val api: OpenAiApi
 
-    internal constructor(builder: OpenAiClient.Builder) : this(
+    internal constructor(builder: OpenAiClientBuilder) : this(
         builder.apiKey,
         builder.version,
         builder.organization,
