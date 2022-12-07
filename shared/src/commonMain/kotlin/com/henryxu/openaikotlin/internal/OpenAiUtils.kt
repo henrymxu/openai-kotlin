@@ -11,9 +11,10 @@ internal object OpenAiUtils {
         return parseOpenAiClientRequestError(e.message)
     }
     internal fun parseOpenAiClientRequestError(message: String): OpenAiClientRequestError? {
-        val errorRegex = Regex(".*\"error\":(.*)\\}.*")
+        // DO NOT REMOVE BACKSLASHES
+        val errorRegex = Regex("(?<=\"error\":)(.*)(?=\\})")
         val match = errorRegex.find(message.replace("\n", ""))
-        match?.groupValues?.last()?.let {
+        match?.value?.let {
             return Json.decodeFromString(it)
         }
         return null

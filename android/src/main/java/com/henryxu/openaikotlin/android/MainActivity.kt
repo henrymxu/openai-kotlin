@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        openAiClient = OpenAiClientBuilder(BuildConfig.API_KEY).build()
+        openAiClient = OpenAiClientBuilder(BuildConfig.OPENAI_API_KEY).build()
 
         val title = getString(R.string.app_name)
         setContent {

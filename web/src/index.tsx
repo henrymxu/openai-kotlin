@@ -7,9 +7,12 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const apiKey = process.env.REACT_APP_OPENAI_API_KEY!
+
 root.render(
   <React.StrictMode>
-    <App />
+    <App apiKey={apiKey}/>
   </React.StrictMode>
 );
 

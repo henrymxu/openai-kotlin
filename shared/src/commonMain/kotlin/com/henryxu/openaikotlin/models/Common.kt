@@ -9,7 +9,7 @@ data class OpenAiClientRequestError(
     val message: String,
     val type: String,
     val param: String?,
-    val code: Int?
+    val code: String?
 )
 
 @JsExport

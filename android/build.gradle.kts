@@ -20,13 +20,15 @@ android {
         }
     }
 
-    buildTypes {
-        debug {
-            buildConfigField("String", "API_KEY", "\"${System.getenv("OPEN_AI_API_KEY")}\"")
-        }
+    val envVariables: Map<String, String> = file(".env").readLines()
+        .associate { val (key, value) = it.split('='); key to "\"${value}\"" }
 
+    buildTypes.forEach { build ->
+        envVariables.forEach { build.buildConfigField("String", it.key, it.value) }
+    }
+
+    buildTypes {
         release {
-            buildConfigField("String", "API_KEY", "\"${System.getenv("OPEN_AI_API_KEY")}\"")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }

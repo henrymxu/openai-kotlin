@@ -6,7 +6,7 @@ import kotlin.test.assertNotNull
 
 class OpenAiUtilsTest {
     @Test
-    fun testHandleClientRequestException() {
+    fun testHandleInappropriateContent() {
         val exampleError = """
             Client request(POST https://api.openai.com/v1/images/generations) invalid: 400 Bad Request. Text: "{
               "error": {
@@ -21,5 +21,25 @@ class OpenAiUtilsTest {
         val error = OpenAiUtils.parseOpenAiClientRequestError(exampleError)
         assertNotNull(error)
         assertEquals("invalid_request_error", error.type)
+    }
+
+    @Test
+    fun testHandleInvalidApiKey() {
+        val exampleError = """
+            Client request(POST https://api.openai.com/v1/completions) invalid: 401 . Text: "{
+                "error": {
+                    "message": "Incorrect API key provided: undefined. You can find your API key at https://beta.openai.com.",
+                    "type": "invalid_request_error",
+                    "param": null,
+                    "code": "invalid_api_key"
+                }
+            }
+            "
+        """.trimIndent()
+        val error = OpenAiUtils.parseOpenAiClientRequestError(exampleError)
+        assertNotNull(error)
+        assertEquals("invalid_request_error", error.type)
+        assertEquals("invalid_api_key", error.code)
+
     }
 }

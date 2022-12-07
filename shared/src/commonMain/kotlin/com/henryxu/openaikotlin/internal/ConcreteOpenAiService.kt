@@ -146,13 +146,13 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
                             }
                         }
                     } catch (e: ClientRequestException) {
-                        emit(Response(null, null, OpenAiUtils.parseOpenAiClientRequestError(e.message)))
+                        emit(Response(null, null, OpenAiUtils.parseOpenAiClientRequestError(e)))
                     }
                 }
                 currentCoroutineContext().cancel()
             }
         } catch (e: ClientRequestException) {
-            return flow { emit(Response(null, null, OpenAiUtils.parseOpenAiClientRequestError(e.message)))}
+            return flow { emit(Response(null, null, OpenAiUtils.parseOpenAiClientRequestError(e)))}
         }
     }
 
@@ -166,7 +166,7 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
             result = response.body()
             raw = response.bodyAsText()
         } catch (e: ClientRequestException) {
-            error = OpenAiUtils.parseOpenAiClientRequestError(e.message)
+            error = OpenAiUtils.parseOpenAiClientRequestError(e)
         } finally {
             return Response(result, raw, error)
         }
