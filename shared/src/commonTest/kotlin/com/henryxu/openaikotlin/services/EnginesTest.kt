@@ -6,17 +6,54 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
-class EnginesTest: BaseServiceTest() {
+class EnginesTest : BaseServiceTest() {
     @Test
     fun testExampleListEngines() = runTest {
-        val result = runValidCase { client.api.listEngines() }
+        val response = """
+            {
+              "data": [
+                {
+                  "id": "engine-id-0",
+                  "object": "engine",
+                  "owner": "organization-owner",
+                  "ready": true
+                },
+                {
+                  "id": "engine-id-2",
+                  "object": "engine",
+                  "owner": "organization-owner",
+                  "ready": true
+                },
+                {
+                  "id": "engine-id-3",
+                  "object": "engine",
+                  "owner": "openai",
+                  "ready": false
+                }
+              ],
+              "object": "list"
+            }
+        """.trimIndent()
+        val result = mockValidApiRequest(response) {
+            listEngines()
+        }
         assertNotEquals(0, result.data.size)
     }
 
     @Test
     fun testExampleRetrieveEngine() = runTest {
         val model = "text-davinci-003"
-        val result = runValidCase { client.api.retrieveEngine(model) }
+        val response = """
+            {
+              "id": "text-davinci-003",
+              "object": "engine",
+              "owner": "openai",
+              "ready": true
+            }
+        """.trimIndent()
+        val result = mockValidApiRequest(response) {
+            retrieveEngine(model)
+        }
         assertEquals(model, result.id)
     }
 }

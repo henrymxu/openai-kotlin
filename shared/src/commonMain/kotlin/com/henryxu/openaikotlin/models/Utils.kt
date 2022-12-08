@@ -11,7 +11,7 @@ object Utils {
         })
     }
 
-    fun FormBuilder.appendFile(key: String, file: ByteArray, fileName: String = "random.json") {
+    fun FormBuilder.appendFile(key: String, file: ByteArray, fileName: String = "random.jsonl") {
         append(key, file, Headers.build {
             append(HttpHeaders.ContentType, ContentType.Application.OctetStream)
             append(HttpHeaders.ContentDisposition, "filename=\"$fileName\"")

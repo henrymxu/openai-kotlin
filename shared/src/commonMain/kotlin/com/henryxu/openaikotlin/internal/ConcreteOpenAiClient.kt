@@ -5,6 +5,7 @@ import com.henryxu.openaikotlin.OpenAiClient
 import com.henryxu.openaikotlin.OpenAiClientBuilder
 import com.henryxu.openaikotlin.Version
 import io.ktor.client.*
+import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.auth.*
 import io.ktor.client.plugins.auth.providers.*
@@ -16,20 +17,22 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
 internal class ConcreteOpenAiClient(
-    private val apiKey: String,
+    apiKey: String,
+    engine: HttpClientEngine?,
     version: Version,
     organization: String,
-): OpenAiClient {
+) : OpenAiClient {
     override val api: OpenAiApi
 
     internal constructor(builder: OpenAiClientBuilder) : this(
         builder.apiKey,
+        builder.httpClientEngine,
         builder.version,
         builder.organization,
     )
 
     init {
-        val client = HttpClient {
+        fun HttpClientConfig<*>.setup() {
             expectSuccess = true
 
             install(Auth) {
@@ -57,6 +60,8 @@ internal class ConcreteOpenAiClient(
                 }
             }
         }
+
+        val client = if (engine != null) HttpClient(engine) { setup() } else HttpClient { setup() }
 
         client.plugin(HttpSend).intercept { request ->
             execute(request)

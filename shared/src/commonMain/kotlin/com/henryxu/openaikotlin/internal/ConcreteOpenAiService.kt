@@ -45,6 +45,7 @@ import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+import io.ktor.serialization.JsonConvertException
 import io.ktor.utils.io.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -90,13 +91,13 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
         get(FilesResource.FileContentResource(fileId))
 
     override suspend fun uploadFile(request: UploadFileRequest): Response<FileResult> =
-        submitForm(FilesResource, request)
+        submitForm(FilesResource(), request)
 
     override suspend fun deleteFile(fileId: String): Response<EntityDeleteResult> =
         delete(FilesResource.FileResource(fileId))
 
     override suspend fun createFineTune(request: CreateFineTuneRequest): Response<FineTuneResult> =
-        post(FineTunesResource.FineTuneResource, request)
+        post(FineTunesResource(), request)
 
     override suspend fun listFineTunes(): Response<FineTunesResult> =
         get(FineTunesResource())
@@ -149,7 +150,6 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
                         emit(Response(null, null, OpenAiUtils.parseOpenAiClientRequestError(e)))
                     }
                 }
-                currentCoroutineContext().cancel()
             }
         } catch (e: ClientRequestException) {
             return flow { emit(Response(null, null, OpenAiUtils.parseOpenAiClientRequestError(e)))}
@@ -167,6 +167,10 @@ internal class ConcreteOpenAiService(val client: HttpClient) : OpenAiApi {
             raw = response.bodyAsText()
         } catch (e: ClientRequestException) {
             error = OpenAiUtils.parseOpenAiClientRequestError(e)
+        } catch (e: JsonConvertException) {
+            error = OpenAiClientRequestError(
+                e.message ?: "", "json", "", ""
+            )
         } finally {
             return Response(result, raw, error)
         }

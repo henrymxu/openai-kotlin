@@ -7,13 +7,10 @@ import kotlinx.serialization.json.Json
 
 internal object OpenAiUtils {
 
-    fun parseOpenAiClientRequestError(e: ClientRequestException): OpenAiClientRequestError? {
-        return parseOpenAiClientRequestError(e.message)
-    }
-    internal fun parseOpenAiClientRequestError(message: String): OpenAiClientRequestError? {
+    internal fun parseOpenAiClientRequestError(e: ClientRequestException): OpenAiClientRequestError? {
         // DO NOT REMOVE BACKSLASHES
         val errorRegex = Regex("(?<=\"error\":)(.*)(?=\\})")
-        val match = errorRegex.find(message.replace("\n", ""))
+        val match = errorRegex.find(e.message.replace("\n", ""))
         match?.value?.let {
             return Json.decodeFromString(it)
         }

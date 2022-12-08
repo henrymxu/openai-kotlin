@@ -1,5 +1,0 @@
-package com.henryxu.openaikotlin
-
-object PrivateInfo {
-    const val API_KEY = "<YOUR API KEY>"
-}

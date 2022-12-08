@@ -1,13 +1,17 @@
 package com.henryxu.openaikotlin.services
 
 import com.henryxu.openaikotlin.BaseServiceTest
-import com.henryxu.openaikotlin.models.*
+import com.henryxu.openaikotlin.models.CreateImageRequest
+import com.henryxu.openaikotlin.models.EditImageRequest
+import com.henryxu.openaikotlin.models.ImageSize
+import com.henryxu.openaikotlin.models.VariateImageRequest
 import kotlinx.coroutines.test.runTest
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
+import kotlin.test.assertTrue
 
-class ImagesTest: BaseServiceTest() {
+class ImagesTest : BaseServiceTest() {
     @Test
     fun testExampleCreateImage() = runTest {
         val request = CreateImageRequest(
@@ -15,7 +19,22 @@ class ImagesTest: BaseServiceTest() {
             n = 2,
             size = ImageSize.LARGE
         )
-        val result = runValidCase { client.api.createImage(request) }
+        val response = """
+            {
+              "created": 1589478378,
+              "data": [
+                {
+                  "url": "https://..."
+                },
+                {
+                  "url": "https://..."
+                }
+              ]
+            }
+        """.trimIndent()
+        val result = mockValidApiRequest(response) {
+            createImage(request)
+        }
         assertNotEquals(0, result.data.size)
         assertNotEquals("", result.data.first().url)
     }
@@ -23,12 +42,27 @@ class ImagesTest: BaseServiceTest() {
     @Test
     fun testExampleEditImage() = runTest {
         val request = EditImageRequest(
-            openFile("images/otter.png"),
+            ByteArray(0),
             prompt = "A cute baby sea otter wearing a beret",
             n = 2,
             size = ImageSize.LARGE
         )
-        val result = runValidCase { client.api.editImage(request) }
+        val response = """
+            {
+              "created": 1589478378,
+              "data": [
+                {
+                  "url": "https://..."
+                },
+                {
+                  "url": "https://..."
+                }
+              ]
+            }
+        """.trimIndent()
+        val result = mockValidApiRequest(response) {
+            editImage(request)
+        }
         assertNotEquals(0, result.data.size)
         assertNotEquals("", result.data.first().url)
     }
@@ -36,11 +70,26 @@ class ImagesTest: BaseServiceTest() {
     @Test
     fun testExampleVariateImage() = runTest {
         val request = VariateImageRequest(
-            openFile("images/otter.png"),
+            ByteArray(0),
             n = 2,
             size = ImageSize.LARGE
         )
-        val result = runValidCase { client.api.variateImage(request) }
+        val response = """
+            {
+              "created": 1589478378,
+              "data": [
+                {
+                  "url": "https://..."
+                },
+                {
+                  "url": "https://..."
+                }
+              ]
+            }
+        """.trimIndent()
+        val result = mockValidApiRequest(response) {
+            variateImage(request)
+        }
         assertNotEquals(0, result.data.size)
         assertNotEquals("", result.data.first().url)
     }
@@ -52,7 +101,19 @@ class ImagesTest: BaseServiceTest() {
             n = 2,
             size = ImageSize.SMALL
         )
-        val result = runInvalidCase { client.api.createImage(request) }
+        val response = """
+            {
+                "error": {
+                    "message": "Incorrect API key provided: undefined. You can find your API key at https://beta.openai.com.",
+                    "type": "invalid_request_error",
+                    "param": null,
+                    "code": "invalid_api_key"
+                }
+            }
+        """.trimIndent()
+        val result = mockInvalidApiRequest(response) {
+            createImage(request)
+        }
         assertEquals("invalid_request_error", result.type)
         assertTrue(result.message.isNotBlank())
     }

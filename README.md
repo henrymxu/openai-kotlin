@@ -90,21 +90,5 @@ This is simply a result of `kotlin` not being able to export the `Long` type to 
 
 ## Tests
 
-The `commonTest` contains tests that will execute real requests to the OpenAI API.
-
-### Setup
-
-1. Navigate to the `shared` module
-2. Navigate to `commonTest/kotlin/com/henryxu/openaikotlin`
-3. Make a copy of the `PrivateInfo.kt.template` file and name it `PrivateInfo.kt`
-4. Populate the required values for each field of the `PrivateInfo` object in `PrivateInfo.kt`
-   - NOTE: Do **NOT** rename any variables!
-   - NOTE: Do **NOT** commit the `PrivateInfo.kt` file!
-5. Run the desired tests via `./gradlew`
-
-It seems unconventional to use a Kotlin class to store credentials for tests,
-but the reason is that it is difficult to find a platform-agnostic way to load variables
-from either a file or the environment.
-
 # References
 - [OpenAI API Spec](https://github.com/openai/openai-openapi)
