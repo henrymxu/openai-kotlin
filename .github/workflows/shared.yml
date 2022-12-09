@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  OPENAI_API_KEY: ${{secrets.API_KEY}}
+
 jobs:
   build:
 
@@ -19,8 +22,11 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-
+      - name: Grant execute permission for setup
+        run: chmod +x scripts/setup_shared.sh
+      - name: Setup environment variable files
+        run: ./scripts/setup_shared.sh
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build -x test
+        run: ./gradlew build
