@@ -1,6 +1,15 @@
+on:
+  workflow_call:
+    inputs:
+      runner:
+        required: true
+        type: string
+
 jobs:
   setup-env:
+    runs-on: ${{ inputs.runner }}
     steps:
+      - uses: actions/checkout@v3
       - name: set up JDK 11
         uses: actions/setup-java@v3
         with:

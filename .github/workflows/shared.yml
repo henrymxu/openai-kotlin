@@ -11,33 +11,33 @@ env:
 
 jobs:
   build-shared:
-    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
       - uses: ./.github/workflows/common.yml@setup-env
+        with:
+          runner: macos-latest
       - name: Run a one-line script
         run: echo pass
 
   build-android:
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - uses: ./.github/workflows/common.yml@setup-env
+        with:
+          runner: ubuntu-latest
       - name: Build with Gradle
         run: ./gradlew :android:build
 
   build-web:
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - uses: ./.github/workflows/common.yml@setup-env
+        with:
+          runner: ubuntu-latest
       - name: Build with Gradle
         run: ./gradlew jsBrowserDistribution
 
   build-ios:
-    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
       - uses: ./.github/workflows/common.yml@setup-env
+        with:
+          runner: macos-latest
       - name: Run a one-line script
         run: echo pass
