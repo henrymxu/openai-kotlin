@@ -3,6 +3,7 @@ package openaikotlin
 import com.henryxu.openaikotlin.OpenAiClientBuilder
 import com.henryxu.openaikotlin.internal.ConcreteOpenAiClient
 import com.henryxu.openaikotlin.models.EntityDeleteResult
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.promise
@@ -15,6 +16,7 @@ external interface OpenAiClientConfig {
 
 @JsExport
 @JsName("OpenAiClient")
+@OptIn(DelicateCoroutinesApi::class)
 class OpenAiClientWrapper(config: OpenAiClientConfig): OpenAiApiWrapper {
     private val client = ConcreteOpenAiClient(OpenAiClientBuilder(config.apiKey))
     private val api = client.api
