@@ -13,6 +13,7 @@ jobs:
   build-shared:
     runs-on: macos-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/common.yml@setup-env
       - name: Run a one-line script
         run: echo pass
@@ -20,6 +21,7 @@ jobs:
   build-android:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/common.yml@setup-env
       - name: Build with Gradle
         run: ./gradlew :android:build
@@ -27,6 +29,7 @@ jobs:
   build-web:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/common.yml@setup-env
       - name: Build with Gradle
         run: ./gradlew jsBrowserDistribution
@@ -34,6 +37,7 @@ jobs:
   build-ios:
     runs-on: macos-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: ./.github/workflows/common.yml@setup-env
       - name: Run a one-line script
         run: echo pass
