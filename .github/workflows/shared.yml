@@ -11,33 +11,77 @@ env:
 
 jobs:
   build-shared:
+    runs-on: macos-latest
     steps:
-      - uses: ./.github/workflows/common.yml@setup-env
+      - uses: actions/checkout@v3
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          runner: macos-latest
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+      - name: Grant execute permission for setup
+        run: chmod +x scripts/setup_shared.sh
+      - name: Setup environment variable files
+        run: ./scripts/setup_shared.sh
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
       - name: Run a one-line script
         run: echo pass
 
   build-android:
+    runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/common.yml@setup-env
+      - uses: actions/checkout@v3
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          runner: ubuntu-latest
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+      - name: Grant execute permission for setup
+        run: chmod +x scripts/setup_shared.sh
+      - name: Setup environment variable files
+        run: ./scripts/setup_shared.sh
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew :android:build
 
   build-web:
+    runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/common.yml@setup-env
+      - uses: actions/checkout@v3
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          runner: ubuntu-latest
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+      - name: Grant execute permission for setup
+        run: chmod +x scripts/setup_shared.sh
+      - name: Setup environment variable files
+        run: ./scripts/setup_shared.sh
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew jsBrowserDistribution
 
   build-ios:
+    runs-on: macos-latest
     steps:
-      - uses: ./.github/workflows/common.yml@setup-env
+      - uses: actions/checkout@v3
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          runner: macos-latest
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+      - name: Grant execute permission for setup
+        run: chmod +x scripts/setup_shared.sh
+      - name: Setup environment variable files
+        run: ./scripts/setup_shared.sh
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
       - name: Run a one-line script
         run: echo pass
