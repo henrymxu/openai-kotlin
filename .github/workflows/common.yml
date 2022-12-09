@@ -1,4 +1,4 @@
-on:
+jobs:
   setup-env:
     steps:
       - uses: actions/checkout@v3

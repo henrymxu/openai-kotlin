@@ -12,27 +12,28 @@ env:
 jobs:
   build-shared:
     runs-on: macos-latest
-    uses: ./.github/workflows/common.yml
     steps:
+      - uses: ./.github/workflows/common.yml
       - name: Run a one-line script
         run: echo pass
 
   build-android:
     runs-on: ubuntu-latest
-    uses: ./.github/workflows/common.yml
     steps:
+      - uses: ./.github/workflows/common.yml
       - name: Build with Gradle
         run: ./gradlew :android:build
 
   build-web:
     runs-on: ubuntu-latest
-    uses: ./.github/workflows/common.yml
     steps:
+      - uses: ./.github/workflows/common.yml
       - name: Build with Gradle
         run: ./gradlew jsBrowserDistribution
 
   build-ios:
     runs-on: macos-latest
     steps:
+      - uses: ./.github/workflows/common.yml
       - name: Run a one-line script
         run: echo pass
