@@ -3,8 +3,8 @@ name: Shared Module CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
 
 env:
   OPENAI_API_KEY: ${{secrets.API_KEY}}
@@ -20,14 +20,14 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-      - name: Grant execute permission for setup
-        run: chmod +x scripts/setup_shared.sh
       - name: Setup environment variable files
-        run: ./scripts/setup_shared.sh
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: |
+          chmod +x scripts/setup_shared.sh
+          ./scripts/setup_shared.sh
       - name: Run a one-line script
-        run: echo pass
+        run: |
+          chmod +x gradlew
+          echo pass
 
   build-android:
     runs-on: ubuntu-latest
@@ -39,14 +39,14 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-      - name: Grant execute permission for setup
-        run: chmod +x scripts/setup_shared.sh
       - name: Setup environment variable files
-        run: ./scripts/setup_shared.sh
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: |
+          chmod +x scripts/setup_shared.sh
+          ./scripts/setup_shared.sh
       - name: Build with Gradle
-        run: ./gradlew test
+        run: |
+          chmod +x gradlew
+          ./gradlew test
 
   build-jvm:
     runs-on: ubuntu-latest
@@ -58,14 +58,14 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-      - name: Grant execute permission for setup
-        run: chmod +x scripts/setup_shared.sh
       - name: Setup environment variable files
-        run: ./scripts/setup_shared.sh
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: |
+          chmod +x scripts/setup_shared.sh
+          ./scripts/setup_shared.sh
       - name: Build with Gradle
-        run: ./gradlew jvmTest
+        run: |
+          chmod +x gradlew
+          ./gradlew jvmTest
 
   build-web:
     runs-on: ubuntu-latest
@@ -77,14 +77,14 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-      - name: Grant execute permission for setup
-        run: chmod +x scripts/setup_shared.sh
       - name: Setup environment variable files
-        run: ./scripts/setup_shared.sh
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: |
+          chmod +x scripts/setup_shared.sh
+          ./scripts/setup_shared.sh
       - name: Build with Gradle
-        run: ./gradlew jsTest
+        run: |
+          chmod +x gradlew
+          ./gradlew jsTest
 
   build-ios:
     runs-on: macos-latest
@@ -96,11 +96,11 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-      - name: Grant execute permission for setup
-        run: chmod +x scripts/setup_shared.sh
       - name: Setup environment variable files
-        run: ./scripts/setup_shared.sh
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+        run: |
+          chmod +x scripts/setup_shared.sh
+          ./scripts/setup_shared.sh
       - name: Run a one-line script
-        run: echo pass
+        run: |
+          chmod +x gradlew
+          echo pass
