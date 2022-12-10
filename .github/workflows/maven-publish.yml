@@ -25,7 +25,7 @@ jobs:
           chmod +x scripts/setup_shared.sh
           ./scripts/setup_shared.sh
       - name: Publish
-        run: ./gradlew jvmJar publish
+        run: ./gradlew jvmJar publishAllPublicationsToMavenCentralRepository
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_USER }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_PASSWORD }}
