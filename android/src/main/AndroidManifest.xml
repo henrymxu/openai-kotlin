@@ -9,7 +9,7 @@
             android:supportsRtl="true"
             android:theme="@style/Theme.Openaikotlin">
         <activity
-                android:name="com.henryxu.openaikotlin.android.MainActivity"
+                android:name="com.henrymxu.openaikotlin.android.MainActivity"
                 android:exported="true"
                 android:label="@string/app_name"
                 android:theme="@style/Theme.Openaikotlin">

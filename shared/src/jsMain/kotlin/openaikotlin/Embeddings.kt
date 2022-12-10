@@ -1,9 +1,9 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.models.CreateEmbeddingsRequest
-import com.henryxu.openaikotlin.models.EmbeddingData
-import com.henryxu.openaikotlin.models.EmbeddingResult
-import com.henryxu.openaikotlin.models.Usage
+import com.henrymxu.openaikotlin.models.CreateEmbeddingsRequest
+import com.henrymxu.openaikotlin.models.EmbeddingData
+import com.henrymxu.openaikotlin.models.EmbeddingResult
+import com.henrymxu.openaikotlin.models.Usage
 
 @JsExport
 @JsName("CreateEmbeddingRequest")

@@ -1,12 +1,12 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.models.CreateFineTuneRequest
-import com.henryxu.openaikotlin.models.File
-import com.henryxu.openaikotlin.models.FineTune
-import com.henryxu.openaikotlin.models.FineTuneEvent
-import com.henryxu.openaikotlin.models.FineTuneEventsResult
-import com.henryxu.openaikotlin.models.FineTunesResult
-import com.henryxu.openaikotlin.models.HyperParams
+import com.henrymxu.openaikotlin.models.CreateFineTuneRequest
+import com.henrymxu.openaikotlin.models.File
+import com.henrymxu.openaikotlin.models.FineTune
+import com.henrymxu.openaikotlin.models.FineTuneEvent
+import com.henrymxu.openaikotlin.models.FineTuneEventsResult
+import com.henrymxu.openaikotlin.models.FineTunesResult
+import com.henrymxu.openaikotlin.models.HyperParams
 import kotlinx.serialization.SerialName
 
 @JsExport

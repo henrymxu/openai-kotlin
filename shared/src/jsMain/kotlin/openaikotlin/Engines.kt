@@ -1,7 +1,7 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.models.EngineResult
-import com.henryxu.openaikotlin.models.EnginesResult
+import com.henrymxu.openaikotlin.models.EngineResult
+import com.henrymxu.openaikotlin.models.EnginesResult
 
 @JsExport
 @JsName("EnginesResult")

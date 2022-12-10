@@ -1,8 +1,8 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.models.ModelResult
-import com.henryxu.openaikotlin.models.ModelsResult
-import com.henryxu.openaikotlin.models.Permission
+import com.henrymxu.openaikotlin.models.ModelResult
+import com.henrymxu.openaikotlin.models.ModelsResult
+import com.henrymxu.openaikotlin.models.Permission
 
 
 @JsExport

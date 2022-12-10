@@ -134,7 +134,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.henryxu.openaikotlin"
+    namespace = "com.henrymxu.openaikotlin"
     compileSdk = 32
     defaultConfig {
         minSdk = 21

@@ -6,7 +6,7 @@ import openaikotlin.ModelsResultWrapper
 import kotlin.js.Promise
 
 /**
- * @see com.henryxu.openaikotlin.services.ModelsApi
+ * @see com.henrymxu.openaikotlin.services.ModelsApi
  */
 @JsExport
 @JsName("ModelsApi")

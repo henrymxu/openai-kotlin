@@ -1,9 +1,9 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.models.Choice
-import com.henryxu.openaikotlin.models.CreateEditRequest
-import com.henryxu.openaikotlin.models.EditResult
-import com.henryxu.openaikotlin.models.Usage
+import com.henrymxu.openaikotlin.models.Choice
+import com.henrymxu.openaikotlin.models.CreateEditRequest
+import com.henrymxu.openaikotlin.models.EditResult
+import com.henrymxu.openaikotlin.models.Usage
 
 @JsExport
 @JsName("CreateEditRequest")

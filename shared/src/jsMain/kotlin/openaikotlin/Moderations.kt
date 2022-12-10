@@ -1,9 +1,9 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.models.CreateModerationRequest
-import com.henryxu.openaikotlin.models.ModerationData
-import com.henryxu.openaikotlin.models.ModerationModel
-import com.henryxu.openaikotlin.models.ModerationResult
+import com.henrymxu.openaikotlin.models.CreateModerationRequest
+import com.henrymxu.openaikotlin.models.ModerationData
+import com.henrymxu.openaikotlin.models.ModerationModel
+import com.henrymxu.openaikotlin.models.ModerationResult
 
 @JsExport
 @JsName("CreateModerationRequest")
