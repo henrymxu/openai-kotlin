@@ -3,11 +3,8 @@ import './App.css';
 import {openaikotlin} from 'openaikotlin'
 import {
     AppBar,
-    Box, Button, Dialog, DialogActions,
-    DialogContent,
-    IconButton, Input,
-    InputAdornment,
-    MenuItem, Stack,
+    Box, IconButton, InputAdornment,
+    Stack,
     TextField, Toolbar, Typography
 } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';

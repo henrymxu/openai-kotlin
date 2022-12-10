@@ -4,7 +4,11 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     id(libs.plugins.kotlin.native.cocoapods.get().pluginId)
     alias(libs.plugins.kotlin.plugin.serialization)
+
+    id("dev.petuska.npm.publish") version "3.1.0"
 }
+
+version = "1.0.0"
 
 kotlin {
     jvm {
@@ -18,21 +22,11 @@ kotlin {
     js(IR) {
         moduleName = "openaikotlin"
         compilations["main"].packageJson {
-            customField("hello", mapOf("one" to 1, "two" to 2))
+            customField("version", project.version)
+            // customField("hello", mapOf("one" to 1, "two" to 2))
         }
-        browser {
-            webpackTask {
-                cssSupport.enabled = true
-                // outputFileName = "openaikotlin.js"
-                output.libraryTarget = "commonjs2"
-            }
-            testTask {
-                useMocha {
-                    timeout = "10000"
-                }
-            }
-        }
-        binaries.executable()
+        nodejs()
+        binaries.library()
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -57,7 +51,7 @@ kotlin {
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
-        version = "1.0"
+        version = project.version.toString()
         ios.deploymentTarget = "14.1"
         framework {
             baseName = "shared"
@@ -138,5 +132,14 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 32
+    }
+}
+
+npmPublish {
+    registries {
+        register("npmjs") {
+            uri.set("https://registry.npmjs.org")
+            authToken.set(System.getenv("NPM_PUBLISH_TOKEN"))
+        }
     }
 }

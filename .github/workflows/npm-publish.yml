@@ -1,0 +1,14 @@
+name: NPM Publish CI
+
+on:
+  release:
+    types: [created]
+
+env:
+  NPM_PUBLISH_TOKEN: ${{NPM_PUBLISH_TOKEN}
+
+jobs:
+  npm-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
