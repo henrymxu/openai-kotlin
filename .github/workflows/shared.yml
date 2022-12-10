@@ -27,52 +27,30 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x gradlew
-          ./gradlew build
-      - name: Compress Output
-        run: |
-          tar -zcvf build-shared.tar.gz build
-      - name: 'Upload build-shared Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-shared
-          path: build-shared.tar.gz
+          ./gradlew :shared:build
 
-  build-shared-native:
-    needs: build-shared
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-          cache: gradle
-      - name: Download build zip from build-shared
-        uses: actions/download-artifact@v3
-        with:
-          name: build-shared
-      - name: Unzip build folder
-        run: unzip build-shared.tar.gz
-      - name: Setup environment variable files
-        run: |
-          chmod +x scripts/setup_shared.sh
-          ./scripts/setup_shared.sh
-      - name: Build with Gradle
-        run: |
-          chmod +x gradlew
-          ./gradlew build
-      - name: Compress Output
-        run: |
-          tar -zcvf build-shared-native.tar.gz build
-      - name: 'Upload build-shared-native Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: build-shared-native
-          path: build-shared-native.tar.gz
+#  build-shared-native:
+#    needs: build-shared
+#    runs-on: macos-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: set up JDK 11
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '11'
+#          distribution: 'temurin'
+#          cache: gradle
+#      - name: Setup environment variable files
+#        run: |
+#          chmod +x scripts/setup_shared.sh
+#          ./scripts/setup_shared.sh
+#      - name: Build with Gradle
+#        run: |
+#          chmod +x gradlew
+#          ./gradlew build
 
   verify-android:
-    needs: build-shared-native
+    needs: build-shared
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -82,12 +60,6 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-      - name: Download build zip from build-shared-native
-        uses: actions/download-artifact@v3
-        with:
-          name: build-shared-native
-      - name: Unzip build folder
-        run: unzip build-shared-native.tar.gz
       - name: Setup environment variable files
         run: |
           chmod +x scripts/setup_shared.sh
@@ -95,35 +67,33 @@ jobs:
       - name: Build Android App
         working-directory: android
         run: |
-          ../gradlew build
+          ../gradlew :android:build
 
   verify-web:
-    needs: build-shared-native
+    needs: build-shared
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: web
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+      - name: set up Node 16
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Download build zip from build-shared-native
-        uses: actions/download-artifact@v3
-        with:
-          name: build-shared-native
-      - name: Unzip build folder
-        run: unzip build-shared-native.tar.gz
-      - name: Setup environment variable files
-        run: |
-          chmod +x scripts/setup_shared.sh
-          ./scripts/setup_shared.sh
+          cache: npm
       - name: Build Web App
         working-directory: web
         run: |
-          npm run install
-          npm run start
+          ../gradlew :shared:jsNodeDevelopmentLibraryDistribution
+          npm run build
+          npm run test
           
 
 #  verify-ios:
