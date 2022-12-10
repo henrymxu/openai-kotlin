@@ -84,6 +84,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Setup environment variable files
+        run: |
+          chmod +x scripts/setup_shared.sh
+          ./scripts/setup_shared.sh
       - name: Build JS Module
         run: ./gradlew :shared:jsNodeDevelopmentLibraryDistribution
       - name: Build Web App
