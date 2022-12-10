@@ -27,7 +27,7 @@ ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.r
 ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 
 [bundles]
-common-kotlin = ["kotlinx-coroutines-core", "kotlinx-serialization-json-common", "kotlinx-datetime"]
+common-kotlin = ["kotlinx-coroutines-core", "kotlinx-serialization-json-common"]
 common-ktor = ["ktor-client-core", "ktor-client-auth", "ktor-client-content-negotiation", "ktor-client-resources", "ktor-serialization-kotlinx-json"]
 common-test = ["kotlinx-coroutines-test", "ktor-client-mock"]
 

@@ -1,0 +1,37 @@
+name: NPM Publish CI
+
+on:
+  release:
+    types: [created]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  OPENAI_API_KEY: ${{secrets.API_KEY}}
+  MAVEN_USER: ${{ secrets.MAVEN_USER }}
+  MAVEN_PW: ${{ secrets.MAVEN_PASSWORD }}
+  MAVEN_SIGNING_KEY: ${{ secrets.MAVEN_SIGNING_KEY }}
+  MAVEN_SIGNING_KEY_PW: ${{ secrets.MAVEN_SIGNING_KEY_PASSWORD }}
+
+jobs:
+  maven-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Test
+        run: ./gradlew jvmTest
+
+      - name: Publish
+        run: ./gradlew jvmJar publish
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: $MAVEN_USER
+          ORG_GRADLE_PROJECT_mavenCentralPassword: $MAVEN_PASSWORD
+          ORG_GRADLE_PROJECT_signingInMemoryKey: $MAVEN_SIGNING_KEY
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: $MAVEN_SIGNING_KEY_PW

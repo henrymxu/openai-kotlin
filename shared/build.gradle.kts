@@ -5,6 +5,7 @@ plugins {
     id(libs.plugins.kotlin.native.cocoapods.get().pluginId)
     alias(libs.plugins.kotlin.plugin.serialization)
 
+    id("com.vanniktech.maven.publish") version "0.22.0"
     id("dev.petuska.npm.publish") version "3.1.0"
 }
 
@@ -133,6 +134,11 @@ android {
         minSdk = 21
         targetSdk = 32
     }
+}
+
+mavenPublishing {
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.DEFAULT)
+    signAllPublications()
 }
 
 npmPublish {
