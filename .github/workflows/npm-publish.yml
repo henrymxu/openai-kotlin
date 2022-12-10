@@ -8,7 +8,6 @@ on:
 
 env:
   OPENAI_API_KEY: ${{secrets.API_KEY}}
-  NPM_PUBLISH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
 
 jobs:
   npm-publish:
@@ -28,4 +27,4 @@ jobs:
       - name: Publish
         run: ./gradlew assembleJsPackage packJsPackage publishJsPackageToNpmjsRegistry
         env:
-          NPM_PUBLISH_TOKEN: ${{NPM_PUBLISH_TOKEN}}
+          NPM_PUBLISH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
