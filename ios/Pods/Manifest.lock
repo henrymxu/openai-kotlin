@@ -1,16 +1,16 @@
 PODS:
-  - shared (1.0)
+  - openaikotlin (0.0.1)
 
 DEPENDENCIES:
-  - shared (from `../shared`)
+  - openaikotlin (from `../shared`)
 
 EXTERNAL SOURCES:
-  shared:
+  openaikotlin:
     :path: "../shared"
 
 SPEC CHECKSUMS:
-  shared: 1ea12778f55017e4892edd4875b6202e2da4ae3d
+  openaikotlin: d873fcb3f9141d4595b6f9c972cc569a8dce6b08
 
-PODFILE CHECKSUM: 75ddcc908451d0bb18bb9a1374d8f3d4d17c230d
+PODFILE CHECKSUM: 64290bb500b09d8bb1d6e7169a11beb5183bd77d
 
 COCOAPODS: 1.11.3

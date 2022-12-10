@@ -46,12 +46,13 @@ kotlin {
     )
 
     cocoapods {
+        name = "openaikotlin"
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         version = project.version.toString()
         ios.deploymentTarget = "14.1"
         framework {
-            baseName = "shared"
+            baseName = "openaikotlin"
             isStatic = false // Set it up explicitly because the default behavior will be changed to DYNAMIC linking in the 1.8 version.
         }
     }

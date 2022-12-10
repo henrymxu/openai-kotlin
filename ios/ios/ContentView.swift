@@ -7,7 +7,7 @@
 
 import SwiftUI
 import CoreData
-import shared
+import openaikotlin
 
 class ImageGenerator: ObservableObject {
     let client: OpenAiClient
