@@ -8,7 +8,7 @@ import openaikotlin.VariateImageRequestWrapper
 import kotlin.js.Promise
 
 /**
- * @see com.henryxu.openaikotlin.services.ImagesApi
+ * @see com.henrymxu.openaikotlin.services.ImagesApi
  */
 @JsExport
 @JsName("ImagesApi")

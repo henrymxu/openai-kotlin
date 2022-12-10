@@ -6,7 +6,7 @@ import openaikotlin.ModerationResultWrapper
 import kotlin.js.Promise
 
 /**
- * @see com.henryxu.openaikotlin.services.ModerationsApi
+ * @see com.henrymxu.openaikotlin.services.ModerationsApi
  */
 @JsExport
 @JsName("ModerationsApi")

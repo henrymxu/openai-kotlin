@@ -6,7 +6,7 @@ import openaikotlin.EditResultWrapper
 import kotlin.js.Promise
 
 /**
- * @see com.henryxu.openaikotlin.services.EditsApi
+ * @see com.henrymxu.openaikotlin.services.EditsApi
  */
 @JsExport
 @JsName("EditsApi")

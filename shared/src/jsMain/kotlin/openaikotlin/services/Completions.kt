@@ -6,7 +6,7 @@ import openaikotlin.CreateCompletionRequestWrapper
 import kotlin.js.Promise
 
 /**
- * @see com.henryxu.openaikotlin.services.CompletionsApi
+ * @see com.henrymxu.openaikotlin.services.CompletionsApi
  */
 @JsExport
 @JsName("CompletionsApi")

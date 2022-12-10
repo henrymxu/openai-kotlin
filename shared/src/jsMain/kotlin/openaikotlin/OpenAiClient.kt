@@ -1,8 +1,8 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.OpenAiClientBuilder
-import com.henryxu.openaikotlin.internal.ConcreteOpenAiClient
-import com.henryxu.openaikotlin.models.EntityDeleteResult
+import com.henrymxu.openaikotlin.OpenAiClientBuilder
+import com.henrymxu.openaikotlin.internal.ConcreteOpenAiClient
+import com.henrymxu.openaikotlin.models.EntityDeleteResult
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

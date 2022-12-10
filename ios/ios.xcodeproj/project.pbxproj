@@ -578,7 +578,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.henryxu.openaikotlin.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.henrymxu.openaikotlin.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -611,7 +611,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.henryxu.openaikotlin.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.henrymxu.openaikotlin.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -631,7 +631,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.henryxu.openaikotlin.iosTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.henrymxu.openaikotlin.iosTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -652,7 +652,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.henryxu.openaikotlin.iosTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.henrymxu.openaikotlin.iosTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -671,7 +671,7 @@
 				DEVELOPMENT_TEAM = 89Q59LP47M;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.henryxu.openaikotlin.iosUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.henrymxu.openaikotlin.iosUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -690,7 +690,7 @@
 				DEVELOPMENT_TEAM = 89Q59LP47M;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.henryxu.openaikotlin.iosUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.henrymxu.openaikotlin.iosUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;

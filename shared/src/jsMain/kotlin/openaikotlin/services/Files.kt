@@ -1,6 +1,6 @@
 package openaikotlin.services
 
-import com.henryxu.openaikotlin.models.EntityDeleteResult
+import com.henrymxu.openaikotlin.models.EntityDeleteResult
 import openaikotlin.ResponseWrapper
 import openaikotlin.FileResultWrapper
 import openaikotlin.FilesResultWrapper
@@ -8,7 +8,7 @@ import openaikotlin.UploadFileRequestWrapper
 import kotlin.js.Promise
 
 /**
- * @see com.henryxu.openaikotlin.services.FilesApi
+ * @see com.henrymxu.openaikotlin.services.FilesApi
  */
 @JsExport
 @JsName("FilesApi")

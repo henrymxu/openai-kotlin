@@ -1,7 +1,7 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.Response
-import com.henryxu.openaikotlin.models.OpenAiClientRequestError
+import com.henrymxu.openaikotlin.Response
+import com.henrymxu.openaikotlin.models.OpenAiClientRequestError
 import openaikotlin.services.CompletionsApiWrapper
 import openaikotlin.services.EditsApiWrapper
 import openaikotlin.services.EmbeddingsApiWrapper

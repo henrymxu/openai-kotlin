@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.henryxu.openaikotlin.android"
+    namespace = "com.henrymxu.openaikotlin.android"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.henryxu.openaikotlin.android"
+        applicationId = "com.henrymxu.openaikotlin.android"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
