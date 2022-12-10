@@ -1,9 +1,9 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.models.File
-import com.henryxu.openaikotlin.models.FileResult
-import com.henryxu.openaikotlin.models.FilesResult
-import com.henryxu.openaikotlin.models.UploadFileRequest
+import com.henrymxu.openaikotlin.models.File
+import com.henrymxu.openaikotlin.models.FileResult
+import com.henrymxu.openaikotlin.models.FilesResult
+import com.henrymxu.openaikotlin.models.UploadFileRequest
 
 @JsExport
 @JsName("UploadFileRequest")

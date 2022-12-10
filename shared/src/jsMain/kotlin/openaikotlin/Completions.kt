@@ -1,9 +1,9 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.models.Choice
-import com.henryxu.openaikotlin.models.CompletionResult
-import com.henryxu.openaikotlin.models.CreateCompletionRequest
-import com.henryxu.openaikotlin.models.Usage
+import com.henrymxu.openaikotlin.models.Choice
+import com.henrymxu.openaikotlin.models.CompletionResult
+import com.henrymxu.openaikotlin.models.CreateCompletionRequest
+import com.henrymxu.openaikotlin.models.Usage
 import openaikotlin.internal.toMap
 import kotlin.js.Json
 

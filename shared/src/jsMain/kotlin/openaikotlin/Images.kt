@@ -1,12 +1,12 @@
 package openaikotlin
 
-import com.henryxu.openaikotlin.models.CreateImageRequest
-import com.henryxu.openaikotlin.models.EditImageRequest
-import com.henryxu.openaikotlin.models.ImageData
-import com.henryxu.openaikotlin.models.ImageFormat
-import com.henryxu.openaikotlin.models.ImageResult
-import com.henryxu.openaikotlin.models.ImageSize
-import com.henryxu.openaikotlin.models.VariateImageRequest
+import com.henrymxu.openaikotlin.models.CreateImageRequest
+import com.henrymxu.openaikotlin.models.EditImageRequest
+import com.henrymxu.openaikotlin.models.ImageData
+import com.henrymxu.openaikotlin.models.ImageFormat
+import com.henrymxu.openaikotlin.models.ImageResult
+import com.henrymxu.openaikotlin.models.ImageSize
+import com.henrymxu.openaikotlin.models.VariateImageRequest
 
 @JsExport
 @JsName("CreateImageRequest")

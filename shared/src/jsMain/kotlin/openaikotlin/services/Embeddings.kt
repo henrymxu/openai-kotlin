@@ -6,7 +6,7 @@ import openaikotlin.EmbeddingResultWrapper
 import kotlin.js.Promise
 
 /**
- * @see com.henryxu.openaikotlin.services.EmbeddingsApi
+ * @see com.henrymxu.openaikotlin.services.EmbeddingsApi
  */
 @JsExport
 @JsName("EmbeddingsApi")

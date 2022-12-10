@@ -6,7 +6,7 @@ import openaikotlin.EnginesResultWrapper
 import kotlin.js.Promise
 
 /**
- * @see com.henryxu.openaikotlin.services.EnginesApi
+ * @see com.henrymxu.openaikotlin.services.EnginesApi
  */
 @JsExport
 @JsName("EnginesApi")

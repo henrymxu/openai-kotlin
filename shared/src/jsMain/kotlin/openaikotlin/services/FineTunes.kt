@@ -1,6 +1,6 @@
 package openaikotlin.services
 
-import com.henryxu.openaikotlin.models.EntityDeleteResult
+import com.henrymxu.openaikotlin.models.EntityDeleteResult
 import openaikotlin.ResponseWrapper
 import openaikotlin.CreateFineTuneRequestWrapper
 import openaikotlin.FineTuneEventResultWrapper
@@ -10,7 +10,7 @@ import openaikotlin.FineTunesResultWrapper
 import kotlin.js.Promise
 
 /**
- * @see com.henryxu.openaikotlin.services.FineTunesApi
+ * @see com.henrymxu.openaikotlin.services.FineTunesApi
  */
 @JsExport
 @JsName("FineTunesApi")
