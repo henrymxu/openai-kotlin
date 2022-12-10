@@ -25,6 +25,6 @@ jobs:
           chmod +x scripts/setup_shared.sh
           ./scripts/setup_shared.sh
       - name: Publish
-        run: ./gradlew assembleJsPackage packJsPackage publishJsPackageToNpmjsRegistry
+        run: ./gradlew assembleNpmJsPackage packNpmJsPackage publishNpmJsPackageToNpmjsRegistry
         env:
           NPM_PUBLISH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
