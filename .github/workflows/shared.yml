@@ -47,7 +47,7 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x gradlew
-          ./gradlew :shared:compileKotlinNative
+          ./gradlew :shared:compileKotlinNative :shared:compileKotlinIosArm64 :shared:compileKotlinIosX64
 
   verify-android:
     needs: build-shared
@@ -72,9 +72,6 @@ jobs:
   verify-web:
     needs: build-shared
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: web
     steps:
       - uses: actions/checkout@v3
       - name: set up JDK 11
@@ -96,7 +93,7 @@ jobs:
           npm run test
 
   verify-ios:
-    needs: build-shared
+    needs: build-shared-native
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
