@@ -93,6 +93,7 @@ jobs:
       - name: Build Web App
         working-directory: web
         run: |
+          npm install
           npm run build
           npm run test
 
