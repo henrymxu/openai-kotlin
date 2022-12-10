@@ -21,7 +21,11 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
+      - name: Setup environment variable files
+        run: |
+          chmod +x scripts/setup_shared.sh
+          ./scripts/setup_shared.sh
       - name: Publish
         run: ./gradlew assembleJsPackage packJsPackage publishJsPackageToNpmjsRegistry
         env:
-          NPM_PUBLISH_TOKEN: $NPM_PUBLISH_TOKEN
+          NPM_PUBLISH_TOKEN: ${{NPM_PUBLISH_TOKEN}}
