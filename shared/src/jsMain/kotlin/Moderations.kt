@@ -1,5 +1,3 @@
-package openaikotlin
-
 import com.henrymxu.openaikotlin.models.CreateModerationRequest
 import com.henrymxu.openaikotlin.models.ModerationData
 import com.henrymxu.openaikotlin.models.ModerationModel

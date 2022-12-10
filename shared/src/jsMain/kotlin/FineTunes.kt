@@ -1,5 +1,3 @@
-package openaikotlin
-
 import com.henrymxu.openaikotlin.models.CreateFineTuneRequest
 import com.henrymxu.openaikotlin.models.File
 import com.henrymxu.openaikotlin.models.FineTune

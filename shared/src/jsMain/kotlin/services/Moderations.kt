@@ -1,8 +1,8 @@
-package openaikotlin.services
+package services
 
-import openaikotlin.ResponseWrapper
-import openaikotlin.CreateModerationRequestWrapper
-import openaikotlin.ModerationResultWrapper
+import ResponseWrapper
+import CreateModerationRequestWrapper
+import ModerationResultWrapper
 import kotlin.js.Promise
 
 /**

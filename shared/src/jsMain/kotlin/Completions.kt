@@ -1,10 +1,8 @@
-package openaikotlin
-
 import com.henrymxu.openaikotlin.models.Choice
 import com.henrymxu.openaikotlin.models.CompletionResult
 import com.henrymxu.openaikotlin.models.CreateCompletionRequest
 import com.henrymxu.openaikotlin.models.Usage
-import openaikotlin.internal.toMap
+import internal.toMap
 import kotlin.js.Json
 
 @JsExport

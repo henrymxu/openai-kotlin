@@ -1,5 +1,3 @@
-package openaikotlin
-
 import com.henrymxu.openaikotlin.models.EngineResult
 import com.henrymxu.openaikotlin.models.EnginesResult
 

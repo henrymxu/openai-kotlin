@@ -1,5 +1,3 @@
-package openaikotlin
-
 import com.henrymxu.openaikotlin.models.Choice
 import com.henrymxu.openaikotlin.models.CreateEditRequest
 import com.henrymxu.openaikotlin.models.EditResult

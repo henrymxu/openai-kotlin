@@ -1,10 +1,10 @@
-package openaikotlin.services
+package services
 
-import openaikotlin.ResponseWrapper
-import openaikotlin.CreateImageRequestWrapper
-import openaikotlin.EditImageRequestWrapper
-import openaikotlin.ImageResultWrapper
-import openaikotlin.VariateImageRequestWrapper
+import ResponseWrapper
+import CreateImageRequestWrapper
+import EditImageRequestWrapper
+import ImageResultWrapper
+import VariateImageRequestWrapper
 import kotlin.js.Promise
 
 /**

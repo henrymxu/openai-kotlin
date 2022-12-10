@@ -1,5 +1,3 @@
-package openaikotlin
-
 import com.henrymxu.openaikotlin.models.ModelResult
 import com.henrymxu.openaikotlin.models.ModelsResult
 import com.henrymxu.openaikotlin.models.Permission

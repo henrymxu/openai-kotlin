@@ -1,8 +1,8 @@
-package openaikotlin.services
+package services
 
-import openaikotlin.ResponseWrapper
-import openaikotlin.EngineResultWrapper
-import openaikotlin.EnginesResultWrapper
+import ResponseWrapper
+import EngineResultWrapper
+import EnginesResultWrapper
 import kotlin.js.Promise
 
 /**

@@ -1,8 +1,8 @@
-package openaikotlin.services
+package services
 
-import openaikotlin.ResponseWrapper
-import openaikotlin.ModelResultWrapper
-import openaikotlin.ModelsResultWrapper
+import ResponseWrapper
+import ModelResultWrapper
+import ModelsResultWrapper
 import kotlin.js.Promise
 
 /**

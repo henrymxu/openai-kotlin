@@ -1,16 +1,14 @@
-package openaikotlin
-
 import com.henrymxu.openaikotlin.Response
 import com.henrymxu.openaikotlin.models.OpenAiClientRequestError
-import openaikotlin.services.CompletionsApiWrapper
-import openaikotlin.services.EditsApiWrapper
-import openaikotlin.services.EmbeddingsApiWrapper
-import openaikotlin.services.EnginesApiWrapper
-import openaikotlin.services.FilesApiWrapper
-import openaikotlin.services.FineTunesApiWrapper
-import openaikotlin.services.ImagesApiWrapper
-import openaikotlin.services.ModelsApiWrapper
-import openaikotlin.services.ModerationsApiWrapper
+import services.CompletionsApiWrapper
+import services.EditsApiWrapper
+import services.EmbeddingsApiWrapper
+import services.EnginesApiWrapper
+import services.FilesApiWrapper
+import services.FineTunesApiWrapper
+import services.ImagesApiWrapper
+import services.ModelsApiWrapper
+import services.ModerationsApiWrapper
 
 @JsExport
 @JsName("OpenAiApi")

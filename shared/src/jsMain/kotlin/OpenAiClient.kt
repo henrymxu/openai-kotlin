@@ -1,5 +1,3 @@
-package openaikotlin
-
 import com.henrymxu.openaikotlin.OpenAiClientBuilder
 import com.henrymxu.openaikotlin.internal.ConcreteOpenAiClient
 import com.henrymxu.openaikotlin.models.EntityDeleteResult

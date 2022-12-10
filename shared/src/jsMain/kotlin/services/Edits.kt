@@ -1,8 +1,8 @@
-package openaikotlin.services
+package services
 
-import openaikotlin.ResponseWrapper
-import openaikotlin.CreateEditRequestWrapper
-import openaikotlin.EditResultWrapper
+import ResponseWrapper
+import CreateEditRequestWrapper
+import EditResultWrapper
 import kotlin.js.Promise
 
 /**

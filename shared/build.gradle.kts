@@ -1,5 +1,3 @@
-import dev.petuska.npm.publish.task.NodeExecTask
-
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.library)
@@ -7,11 +5,11 @@ plugins {
     id(libs.plugins.kotlin.native.cocoapods.get().pluginId)
     alias(libs.plugins.kotlin.plugin.serialization)
 
-    id("com.vanniktech.maven.publish") version "0.22.0"
-    id("dev.petuska.npm.publish") version "3.1.0"
+    alias(libs.plugins.publish.maven)
+    alias(libs.plugins.publish.npm)
 }
 
-version = "1.0.0"
+version = libs.versions.openaikotlin.get()
 
 kotlin {
     jvm {
@@ -45,11 +43,7 @@ kotlin {
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
-        }
-    }
+    )
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -131,10 +125,10 @@ kotlin {
 
 android {
     namespace = "com.henrymxu.openaikotlin"
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
     }
 }
 
@@ -145,8 +139,9 @@ mavenPublishing {
 
 npmPublish {
     packages {
-        register("npmjs") {
+        named("js") {
             packageName.set("openaikotlin")
+            version.set(project.version.toString())
         }
     }
     registries {
@@ -156,8 +151,3 @@ npmPublish {
         }
     }
 }
-
-//// workaround for missing node
-//tasks.withType<NodeExecTask> {
-//    if (System.getenv("CI") == "true") nodeHome.set(File("/usr"))
-//}

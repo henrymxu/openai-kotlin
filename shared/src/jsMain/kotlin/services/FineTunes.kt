@@ -1,12 +1,12 @@
-package openaikotlin.services
+package services
 
 import com.henrymxu.openaikotlin.models.EntityDeleteResult
-import openaikotlin.ResponseWrapper
-import openaikotlin.CreateFineTuneRequestWrapper
-import openaikotlin.FineTuneEventResultWrapper
-import openaikotlin.FineTuneEventsResultWrapper
-import openaikotlin.FineTuneResultWrapper
-import openaikotlin.FineTunesResultWrapper
+import ResponseWrapper
+import CreateFineTuneRequestWrapper
+import FineTuneEventResultWrapper
+import FineTuneEventsResultWrapper
+import FineTuneResultWrapper
+import FineTunesResultWrapper
 import kotlin.js.Promise
 
 /**

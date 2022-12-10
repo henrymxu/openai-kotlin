@@ -1,5 +1,3 @@
-package openaikotlin
-
 import com.henrymxu.openaikotlin.models.CreateEmbeddingsRequest
 import com.henrymxu.openaikotlin.models.EmbeddingData
 import com.henrymxu.openaikotlin.models.EmbeddingResult

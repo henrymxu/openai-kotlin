@@ -1,8 +1,8 @@
-package openaikotlin.services
+package services
 
-import openaikotlin.ResponseWrapper
-import openaikotlin.CreateEmbeddingsRequestWrapper
-import openaikotlin.EmbeddingResultWrapper
+import ResponseWrapper
+import CreateEmbeddingsRequestWrapper
+import EmbeddingResultWrapper
 import kotlin.js.Promise
 
 /**

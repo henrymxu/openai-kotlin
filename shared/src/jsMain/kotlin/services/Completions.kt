@@ -1,8 +1,8 @@
-package openaikotlin.services
+package services
 
-import openaikotlin.ResponseWrapper
-import openaikotlin.CompletionResultWrapper
-import openaikotlin.CreateCompletionRequestWrapper
+import ResponseWrapper
+import CompletionResultWrapper
+import CreateCompletionRequestWrapper
 import kotlin.js.Promise
 
 /**

@@ -1,10 +1,10 @@
-package openaikotlin.services
+package services
 
 import com.henrymxu.openaikotlin.models.EntityDeleteResult
-import openaikotlin.ResponseWrapper
-import openaikotlin.FileResultWrapper
-import openaikotlin.FilesResultWrapper
-import openaikotlin.UploadFileRequestWrapper
+import ResponseWrapper
+import FileResultWrapper
+import FilesResultWrapper
+import UploadFileRequestWrapper
 import kotlin.js.Promise
 
 /**

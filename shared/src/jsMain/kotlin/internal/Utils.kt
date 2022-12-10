@@ -1,4 +1,4 @@
-package openaikotlin.internal
+package internal
 
 import kotlin.js.Json
 
