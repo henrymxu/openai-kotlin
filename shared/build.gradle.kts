@@ -61,7 +61,7 @@ kotlin {
         ios.deploymentTarget = "14.1"
         framework {
             baseName = "shared"
-            isStatic = true // Set it up explicitly because the default behavior will be changed to DYNAMIC linking in the 1.8 version.
+            isStatic = false // Set it up explicitly because the default behavior will be changed to DYNAMIC linking in the 1.8 version.
         }
     }
 

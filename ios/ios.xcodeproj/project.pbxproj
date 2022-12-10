@@ -13,11 +13,12 @@
 		91F8817B29431C4000EC0935 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F8817A29431C4000EC0935 /* ContentView.swift */; };
 		91F8817D29431C4100EC0935 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F8817C29431C4100EC0935 /* Assets.xcassets */; };
 		91F8818029431C4100EC0935 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F8817F29431C4100EC0935 /* Preview Assets.xcassets */; };
-		91F8818229431C4100EC0935 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F8818129431C4100EC0935 /* Persistence.swift */; };
 		91F8818529431C4100EC0935 /* ios.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 91F8818329431C4100EC0935 /* ios.xcdatamodeld */; };
 		91F8818F29431C4100EC0935 /* iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F8818E29431C4100EC0935 /* iosTests.swift */; };
 		91F8819929431C4100EC0935 /* iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F8819829431C4100EC0935 /* iosUITests.swift */; };
 		91F8819B29431C4100EC0935 /* iosUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F8819A29431C4100EC0935 /* iosUITestsLaunchTests.swift */; };
+		91F881AF29442F9100EC0935 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F881AE29442F9000EC0935 /* shared.framework */; };
+		91F881B029442F9100EC0935 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 91F881AE29442F9000EC0935 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DCC72D8823D5EA0C8510C961 /* Pods_iosTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF6318EC965C8B7AA7E8C12 /* Pods_iosTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +39,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		91F881B129442F9100EC0935 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				91F881B029442F9100EC0935 /* shared.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		82C53DDCB23B05DFBB2C906D /* Pods-iosTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosTests.debug.xcconfig"; path = "Target Support Files/Pods-iosTests/Pods-iosTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91F8817529431C4000EC0935 /* ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,13 +60,16 @@
 		91F8817A29431C4000EC0935 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		91F8817C29431C4100EC0935 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91F8817F29431C4100EC0935 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		91F8818129431C4100EC0935 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		91F8818429431C4100EC0935 /* ios.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ios.xcdatamodel; sourceTree = "<group>"; };
 		91F8818A29431C4100EC0935 /* iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F8818E29431C4100EC0935 /* iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosTests.swift; sourceTree = "<group>"; };
 		91F8819429431C4100EC0935 /* iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F8819829431C4100EC0935 /* iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosUITests.swift; sourceTree = "<group>"; };
 		91F8819A29431C4100EC0935 /* iosUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		91F881AE29442F9000EC0935 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = ../shared/build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
+		91F881B22944393400EC0935 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		91F881B3294439A700EC0935 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		91F881B429443A3B00EC0935 /* Config.xcconfig.template */ = {isa = PBXFileReference; lastKnownFileType = text; path = Config.xcconfig.template; sourceTree = "<group>"; };
 		9EEB303A95FDF16DF8E769E3 /* Pods-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.release.xcconfig"; path = "Target Support Files/Pods-ios/Pods-ios.release.xcconfig"; sourceTree = "<group>"; };
 		BE1B846BA3DB9716310D5654 /* Pods-ios-iosUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios-iosUITests.debug.xcconfig"; path = "Target Support Files/Pods-ios-iosUITests/Pods-ios-iosUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CDF6318EC965C8B7AA7E8C12 /* Pods_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +86,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				82DC410D97745DF836CCD015 /* Pods_ios.framework in Frameworks */,
+				91F881AF29442F9100EC0935 /* shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +112,8 @@
 		91F8816C29431C4000EC0935 = {
 			isa = PBXGroup;
 			children = (
+				91F881B22944393400EC0935 /* Config.xcconfig */,
+				91F881B429443A3B00EC0935 /* Config.xcconfig.template */,
 				91F8817729431C4000EC0935 /* ios */,
 				91F8818D29431C4100EC0935 /* iosTests */,
 				91F8819729431C4100EC0935 /* iosUITests */,
@@ -115,10 +136,10 @@
 		91F8817729431C4000EC0935 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				91F881B3294439A700EC0935 /* Info.plist */,
 				91F8817829431C4000EC0935 /* iosApp.swift */,
 				91F8817A29431C4000EC0935 /* ContentView.swift */,
 				91F8817C29431C4100EC0935 /* Assets.xcassets */,
-				91F8818129431C4100EC0935 /* Persistence.swift */,
 				91F8818329431C4100EC0935 /* ios.xcdatamodeld */,
 				91F8817E29431C4100EC0935 /* Preview Content */,
 			);
@@ -166,6 +187,7 @@
 		FDDD49AEDDB93D0CFF24C8EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				91F881AE29442F9000EC0935 /* shared.framework */,
 				D02A50BC2BD4C3EB1BA17DCD /* Pods_ios.framework */,
 				D5994B3136A2A97ACE99F9F2 /* Pods_ios_iosUITests.framework */,
 				CDF6318EC965C8B7AA7E8C12 /* Pods_iosTests.framework */,
@@ -184,6 +206,7 @@
 				91F8817129431C4000EC0935 /* Sources */,
 				91F8817229431C4000EC0935 /* Frameworks */,
 				91F8817329431C4000EC0935 /* Resources */,
+				91F881B129442F9100EC0935 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -375,7 +398,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91F8818229431C4100EC0935 /* Persistence.swift in Sources */,
 				91F8817B29431C4000EC0935 /* ContentView.swift in Sources */,
 				91F8817929431C4000EC0935 /* iosApp.swift in Sources */,
 				91F8818529431C4100EC0935 /* ios.xcdatamodeld in Sources */,
@@ -417,6 +439,7 @@
 /* Begin XCBuildConfiguration section */
 		91F8819C29431C4100EC0935 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91F881B22944393400EC0935 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -477,6 +500,7 @@
 		};
 		91F8819D29431C4100EC0935 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91F881B22944393400EC0935 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -542,6 +566,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ios/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -574,6 +599,7 @@
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ios/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

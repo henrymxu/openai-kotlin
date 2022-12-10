@@ -66,6 +66,15 @@ CoroutineScope(Dispatchers.IO).launch {
 
 ## iOS
 
+### Setup
+
+1. Navigate to the `ios` module
+2. Make a copy of the `Config.xcconfig.template` file and name it `Config.xcconfig`
+3. Populate the required values for each key in `Config.xcconfig`
+   - NOTE: Do **NOT** rename any keys!
+   - NOTE: Do **NOT** commit the `Config.xcconfig` file!
+4. Run application
+
 TBA
 
 ## NodeJS

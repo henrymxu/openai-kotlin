@@ -1,0 +1,12 @@
+//
+//  Config.xcconfig
+//  ios
+//
+//  Created by Henry Xu on 2022-12-09.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+OPENAI_API_KEY = <YOUR API KEY>
+

@@ -9,12 +9,12 @@ import SwiftUI
 
 @main
 struct iosApp: App {
-    let persistenceController = PersistenceController.shared
-
+    let key = Bundle.main.infoDictionary?["OPENAI_API_KEY"] as? String
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(ImageGenerator(apiKey: key ?? "invalid"))
         }
     }
 }
+
