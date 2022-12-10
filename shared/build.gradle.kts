@@ -157,7 +157,7 @@ npmPublish {
     }
 }
 
-// workaround for missing node
-tasks.withType<NodeExecTask> {
-    if (System.getenv("CI") == "true") nodeHome.set(File("/usr"))
-}
+//// workaround for missing node
+//tasks.withType<NodeExecTask> {
+//    if (System.getenv("CI") == "true") nodeHome.set(File("/usr"))
+//}
