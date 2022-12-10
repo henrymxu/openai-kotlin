@@ -87,10 +87,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Build JS Module
+        run: ./gradlew :shared:jsNodeDevelopmentLibraryDistribution
       - name: Build Web App
         working-directory: web
         run: |
-          ../gradlew :shared:jsNodeDevelopmentLibraryDistribution
           npm run build
           npm run test
 
