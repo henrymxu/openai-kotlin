@@ -142,6 +142,11 @@ mavenPublishing {
 }
 
 npmPublish {
+    packages {
+        register("npmjs") {
+            packageName.set("openaikotlin")
+        }
+    }
     registries {
         register("npmjs") {
             uri.set("https://registry.npmjs.org")

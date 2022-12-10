@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
-  OPENAI_API_KEY: ${{secrets.API_KEY}}
+  OPENAI_API_KEY: ${{ secrets.API_KEY }}
 
 jobs:
   maven-publish:
@@ -27,7 +27,7 @@ jobs:
       - name: Publish
         run: ./gradlew jvmJar publish
         env:
-          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{secrets.MAVEN_USER}}
-          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{secrets.MAVEN_PASSWORD}}
-          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{secrets.MAVEN_SIGNING_KEY}}
-          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{secrets.MAVEN_SIGNING_KEY_PASSWORD}}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_USER }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.MAVEN_SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.MAVEN_SIGNING_KEY_PASSWORD }}
