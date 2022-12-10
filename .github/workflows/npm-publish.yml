@@ -20,14 +20,12 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
       - name: Setup environment variable files
         run: |
           chmod +x scripts/setup_shared.sh
           ./scripts/setup_shared.sh
+      - name: Setup Node
+        run: ./gradlew kotlinNodeJsSetup
       - name: Publish
         run: ./gradlew assembleNpmJsPackage packNpmJsPackage publishNpmJsPackageToNpmjsRegistry
         env:
