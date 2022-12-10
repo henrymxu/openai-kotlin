@@ -47,7 +47,7 @@ jobs:
       - name: Build with Gradle
         run: |
           chmod +x gradlew
-          ./gradlew build
+          ./gradlew :shared:compileKotlinNative
 
   verify-android:
     needs: build-shared
@@ -87,7 +87,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: 'npm'
       - name: Build Web App
         working-directory: web
         run: |
@@ -98,16 +97,14 @@ jobs:
   verify-ios:
     needs: build-shared
     runs-on: macos-latest
-    defaults:
-      run:
-        working-directory: ios
     steps:
       - uses: actions/checkout@v3
       - name: Setup environment variable files
         run: |
           chmod +x scripts/setup_shared.sh
           ./scripts/setup_shared.sh
-      - name: Run a one-line script
+      - name: Build iOS App
+        working-directory: ios
         continue-on-error: true
         run: |
           xcodebuild -workspace ios.xcworkspace -scheme ios
