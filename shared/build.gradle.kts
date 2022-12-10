@@ -1,3 +1,5 @@
+import dev.petuska.npm.publish.task.NodeExecTask
+
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     alias(libs.plugins.android.library)
@@ -153,4 +155,9 @@ npmPublish {
             authToken.set(System.getenv("NPM_PUBLISH_TOKEN"))
         }
     }
+}
+
+// workaround for missing node
+tasks.withType<NodeExecTask> {
+    if (System.getenv("CI") == "true") nodeHome.set(File("/usr"))
 }
