@@ -2,9 +2,7 @@ name: NPM Publish CI
 
 on:
   release:
-    types: [created]
-#  pull_request:
-#    branches: [ "main" ]
+    types: [ created ]
 
 env:
   OPENAI_API_KEY: ${{secrets.API_KEY}}
