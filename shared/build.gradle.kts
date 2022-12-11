@@ -4,7 +4,12 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     id(libs.plugins.kotlin.native.cocoapods.get().pluginId)
     alias(libs.plugins.kotlin.plugin.serialization)
+
+    alias(libs.plugins.publish.maven)
+    alias(libs.plugins.publish.npm)
 }
+
+version = libs.versions.openaikotlin.get()
 
 kotlin {
     jvm {
@@ -18,21 +23,11 @@ kotlin {
     js(IR) {
         moduleName = "openaikotlin"
         compilations["main"].packageJson {
-            customField("hello", mapOf("one" to 1, "two" to 2))
+            customField("version", project.version)
+            // customField("hello", mapOf("one" to 1, "two" to 2))
         }
-        browser {
-            webpackTask {
-                cssSupport.enabled = true
-                // outputFileName = "openaikotlin.js"
-                output.libraryTarget = "commonjs2"
-            }
-            testTask {
-                useMocha {
-                    timeout = "10000"
-                }
-            }
-        }
-        binaries.executable()
+        nodejs()
+        binaries.library()
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -48,19 +43,16 @@ kotlin {
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
-        }
-    }
+    )
 
     cocoapods {
+        name = "openaikotlin"
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
-        version = "1.0"
+        version = project.version.toString()
         ios.deploymentTarget = "14.1"
         framework {
-            baseName = "shared"
+            baseName = "openaikotlin"
             isStatic = false // Set it up explicitly because the default behavior will be changed to DYNAMIC linking in the 1.8 version.
         }
     }
@@ -114,7 +106,6 @@ kotlin {
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
         val iosMain by creating {
-            iosSimulatorArm64Main.dependsOn(this)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
@@ -135,9 +126,29 @@ kotlin {
 
 android {
     namespace = "com.henrymxu.openaikotlin"
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 33
+    }
+}
+
+mavenPublishing {
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.S01)
+    signAllPublications()
+}
+
+npmPublish {
+    packages {
+        named("js") {
+            packageName.set("openaikotlin")
+            version.set(project.version.toString())
+        }
+    }
+    registries {
+        register("npmjs") {
+            uri.set("https://registry.npmjs.org")
+            authToken.set(System.getenv("NPM_PUBLISH_TOKEN"))
+        }
     }
 }

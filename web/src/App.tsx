@@ -1,19 +1,16 @@
 import React, {useState} from 'react';
 import './App.css';
-import {openaikotlin} from 'openaikotlin'
 import {
     AppBar,
-    Box, Button, Dialog, DialogActions,
-    DialogContent,
-    IconButton, Input,
-    InputAdornment,
-    MenuItem, Stack,
+    Box, IconButton, InputAdornment,
+    Stack,
     TextField, Toolbar, Typography
 } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import {Settings} from "@mui/icons-material";
 import {ChatMessage, ChatWindow} from "./Chat";
 import {SettingsDialog} from "./SettingsDialog";
+import { OpenAiClient } from 'openaikotlin';
 
 function scrollChatToBottom() {
     let objDiv = document.getElementById("chat-window");
@@ -23,7 +20,7 @@ function scrollChatToBottom() {
 }
 
 function App(props: { apiKey: string }) {
-    const client = new openaikotlin.OpenAiClient({apiKey: props.apiKey});
+    const client = new OpenAiClient({apiKey: props.apiKey});
 
     const initialChat = [{sender: 'openai', message: 'Welcome to GPT Chat!'}]
     const [input, setInput] = useState("");
