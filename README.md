@@ -1,5 +1,7 @@
 # OpenAI Kotlin Multiplatform Library
 
+[![Shared Module CI](https://github.com/henrymxu/openai-kotlin/actions/workflows/shared.yml/badge.svg)](https://github.com/henrymxu/openai-kotlin/actions/workflows/shared.yml)
+
 The Unofficial OpenAI Kotlin library provides convenient access to the OpenAI API for multiple languages 
 via [Kotlin Multiplatform Module](https://kotlinlang.org/docs/multiplatform.html). 
 
@@ -12,7 +14,7 @@ This library contains support for the following platforms:
 
 It includes statically defined types for both requests and responses for all the publicly documented APIs.
 
-## Usage
+## Setup
 
 Using the library requires an OpenAI API Key!
 
@@ -20,6 +22,26 @@ If you do not have an api key already, follow these steps:
 1. Create an account at https://beta.openai.com/
 2. Navigate to the API Keys [page](https://beta.openai.com/account/api-keys)
 3. Create a new secret key
+
+Installing the dependency:
+
+### Android
+
+```
+implementation 'com.henrymxu.openaikotlin:openaikotlin-shared:<version>'
+```
+
+### iOS
+
+TBA
+
+### NodeJS
+
+```shell
+npm install openaikotlin
+```
+
+## Usage
 
 The following is a simple example to fetch the details of a model
 
@@ -51,8 +73,7 @@ CoroutineScope(Dispatchers.IO).launch {
 }
 ```
 
-## Examples
-
+## Samples
 ## Android
 
 ### Setup
@@ -74,8 +95,6 @@ CoroutineScope(Dispatchers.IO).launch {
    - NOTE: Do **NOT** rename any keys!
    - NOTE: Do **NOT** commit the `Config.xcconfig` file!
 4. Run application
-
-TBA
 
 ## NodeJS
 
