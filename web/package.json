@@ -15,7 +15,7 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "kotlin": "^1.7.22",
-    "openaikotlin": "file:../build/js/packages/openaikotlin",
+    "openai-kotlin": "file:../build/js/packages/openai-kotlin",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

@@ -1,16 +1,16 @@
 PODS:
-  - openaikotlin (0.0.1)
+  - openai-kotlin (0.0.1)
 
 DEPENDENCIES:
-  - openaikotlin (from `../shared`)
+  - openai-kotlin (from `../shared`)
 
 EXTERNAL SOURCES:
-  openaikotlin:
+  openai-kotlin:
     :path: "../shared"
 
 SPEC CHECKSUMS:
-  openaikotlin: d873fcb3f9141d4595b6f9c972cc569a8dce6b08
+  openai-kotlin: 4b0ac2aec10e8ed5737d6d94b797c3834c7d82c0
 
-PODFILE CHECKSUM: 64290bb500b09d8bb1d6e7169a11beb5183bd77d
+PODFILE CHECKSUM: 74035878c52d4bf553fe5a2385732cf95e984d93
 
 COCOAPODS: 1.11.3

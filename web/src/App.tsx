@@ -10,7 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 import {Settings} from "@mui/icons-material";
 import {ChatMessage, ChatWindow} from "./Chat";
 import {SettingsDialog} from "./SettingsDialog";
-import { OpenAiClient } from 'openaikotlin';
+import { Response, Completion, OpenAiClient } from 'openai-kotlin';
 
 function scrollChatToBottom() {
     let objDiv = document.getElementById("chat-window");
@@ -32,7 +32,7 @@ function App(props: { apiKey: string }) {
     const [model, setModel] = useState('text-davinci-003');
     const [maxTokens, setMaxTokens] = useState<number | undefined>();
 
-    const onMessageReceived = (message: openaikotlin.Response<openaikotlin.Completion>) => {
+    const onMessageReceived = (message: Response<Completion>) => {
         if (message.error) {
             setError(message.error.message)
         } else {

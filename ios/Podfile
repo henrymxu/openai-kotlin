@@ -5,7 +5,7 @@ target 'ios' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   
-  pod 'openaikotlin', :path => '../shared'
+  pod 'openai-kotlin', :path => '../shared'
 
   target 'iosTests' do
     inherit! :search_paths
