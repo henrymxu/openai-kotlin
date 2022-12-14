@@ -21,7 +21,7 @@ kotlin {
         }
     }
     js(IR) {
-        moduleName = "openaikotlin"
+        moduleName = "openai-kotlin"
         compilations["main"].packageJson {
             customField("version", project.version)
             // customField("hello", mapOf("one" to 1, "two" to 2))
@@ -46,7 +46,7 @@ kotlin {
     )
 
     cocoapods {
-        name = "openaikotlin"
+        name = "openai-kotlin"
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         version = project.version.toString()
@@ -141,7 +141,7 @@ mavenPublishing {
 npmPublish {
     packages {
         named("js") {
-            packageName.set("openaikotlin")
+            packageName.set("openai-kotlin")
             version.set(project.version.toString())
         }
     }
